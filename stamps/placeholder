@@ -1,0 +1,2 @@
+This is to ensure that the stamps/ folder (which is populated & used by
+makefiles) exists.
