@@ -5,9 +5,11 @@ TMPFILE="testing/page"
 
 run_test() {
 	echo -n "$1... "
-	eval "$2" && echo pass || echo FAIL
+	eval "$2" && echo pass && return
+	echo FAIL
+	exit 1
 }
 
 run_test "Fetching mainpage $BASEURL" 'curl -is "$BASEURL" > "$TMPFILE"'
-run_test "Checking status code 200" 'grep -q "^200" "$TMPFILE"'
+run_test "Checking status code 200" 'grep -q "^HTTP/[0-9.]* 200" "$TMPFILE"'
 run_test "Removing temporary file" 'rm "$TMPFILE"'

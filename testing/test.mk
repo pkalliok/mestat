@@ -9,8 +9,10 @@ test-server-run: $(PIDF)
 .PHONY: test-server-run test-server-unsetup
 
 $(PIDF): test-server-unsetup
-	echo "TODO: start service here" & echo $$! > $@
+	cd mestat-app && lein ring server-headless & echo $$! > $@
+	@echo "Waiting for server to come up..."
+	sleep 6
 
 run-tests: test-server-run
-	./testing/run-tests http://localhost:5000/
+	./testing/run-tests http://localhost:5005/
 
