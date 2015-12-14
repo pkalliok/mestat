@@ -1,0 +1,12 @@
+#!/bin/sh
+
+BASEURL="$1"
+TMPFILE="testing/page"
+
+run_test() {
+	echo -n "$1... "
+	eval "$2" && echo pass || echo FAIL
+}
+
+run_test "Fetching mainpage $BASEURL" 'curl -isS "$BASEURL" > "$TMPFILE"'
+run_test "Checking status code 200" 'grep -q "^200" "$TMPFILE"'
