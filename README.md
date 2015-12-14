@@ -20,4 +20,14 @@ Docker-säilöihin.
 
 ### käyttöliittymä
 ### testaus
+
+Testauksessa käytetään kahdenlaisia tekniikoita:
+
+* clojuren sisäisiä testejä, jotka käynnistävät ja testaavat
+  komponentteja (yksikkö- ja integraatiotestit), nämä tehdään
+  clojure.test -kirjastolla
+* koko ohjelmistoa ulkopuolelta käyttäviä testejä (funktionaaliset ja
+  käyttöönottoprosessin testit), nämä on tällä hetkellä toteutettu shell
+  skripteinä (+ palvelun käynnistysautomaatio makefilenä)
+
 ### automaatio
