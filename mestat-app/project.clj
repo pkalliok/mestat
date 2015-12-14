@@ -1,6 +1,6 @@
 (defproject mestat-app "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+  :description "an easy tool for tagging physical places"
+  :url "https://deus.solita.fi/Solita/projects/dev_pursiainen-harjoitustyot/repositories/mestat/tree/master"
   :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [compojure "1.4.0"]
