@@ -6,3 +6,4 @@ commit: textual documentation about the information model
 commit: database initialisation with basic data, migration and initialisation targets
 commit: database import testing scripts (done)
 status: done
+commit: added forgotten testing script

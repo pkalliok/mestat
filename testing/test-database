@@ -1,0 +1,22 @@
+#!/bin/sh
+
+PG_PARAMS="$*"
+
+run_test() {
+	echo -n "$1... "
+	psql -qAt $PG_PARAMS -c "$2" | grep -x "$3" && return
+	echo FAIL
+	exit 1
+}
+
+run_test 'location information' \
+	"select coord, name, ns
+	 from location, location_tag, tag
+	 where location.id=location_tag.location
+	 and location_tag.tag = tag.id" \
+	'(60.16952,24.93545)|city|testuser'
+
+run_test 'user information' \
+	"select id, username from webuser" \
+	'1|system'
+
