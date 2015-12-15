@@ -4,3 +4,5 @@ commit: SQL scripts for setting up and tearing down the database
 commit: tag, location_tag, webuser tables
 commit: textual documentation about the information model
 commit: database initialisation with basic data, migration and initialisation targets
+commit: database import testing scripts (done)
+status: done

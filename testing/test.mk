@@ -20,6 +20,12 @@ $(PIDF): $(DEPLOY_JAR) test-server-unsetup
 	sleep 1; \
 	done
 
-run-tests: test-server-run
+external-tests: test-server-run
 	./testing/run-tests http://localhost:5005/
+
+database-tests: stamps/initialise-db-stamp
+	./testing/test-database -h /tmp -p 5007 mestat
+
+.PHONY: external-tests database-tests
+
 
