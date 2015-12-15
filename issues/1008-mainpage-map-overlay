@@ -1,0 +1,1 @@
+description: Implement the location-specific overlay that shows nearby locations.  Possible backends: OSM, google maps.
