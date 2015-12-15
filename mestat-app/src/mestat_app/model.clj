@@ -3,3 +3,4 @@
 
 (defqueries "mestat_app/queries.sql"
   {:connection "postgresql://localhost:5007/mestat"})
+
