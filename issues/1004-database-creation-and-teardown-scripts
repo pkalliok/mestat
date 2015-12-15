@@ -1,1 +1,2 @@
 description: Make scripts for setting up a new postgresql database for storing mestat content - first for testing, then for installing production
+commit: makefile rules for setting up a user-specific postgresql server in port 5007
