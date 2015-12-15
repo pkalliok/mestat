@@ -1,3 +1,6 @@
 stamps/*.log
 stamps/*.pid
 stamps/*-stamp
+database/backup.sql
+database/pg-data
+testing/page

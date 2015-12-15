@@ -12,4 +12,7 @@ run_test() {
 
 run_test "Fetching mainpage $BASEURL" 'curl -is "$BASEURL" > "$TMPFILE"'
 run_test "Checking status code 200" 'grep -q "^HTTP/[0-9.]* 200" "$TMPFILE"'
+run_test "Checking mainpage content" 'grep -q "Hello World" "$TMPFILE"'
+run_test "Fetching proximity query" 'curl -is "$BASEURL/search?lat=0&long=0" > "$TMPFILE"'
+run_test "Checking query content" 'grep -q "capital" "$TMPFILE"'
 run_test "Removing temporary file" 'rm "$TMPFILE"'

@@ -1,3 +1,4 @@
 description: Implement /get-points?x=&y= to get a list of nearby points with their associated tags
 commit: An SQL query for getting points in order of proximity
 commit: added clj-postgresql so that one can say (mestat-app.model/points-near {:page 0 :point (pg/point 0 0)})
+commit: tests for /search handler
