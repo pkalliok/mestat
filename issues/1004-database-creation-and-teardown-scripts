@@ -3,3 +3,4 @@ commit: makefile rules for setting up a user-specific postgresql server in port 
 commit: SQL scripts for setting up and tearing down the database
 commit: tag, location_tag, webuser tables
 commit: textual documentation about the information model
+commit: database initialisation with basic data, migration and initialisation targets
