@@ -1,0 +1,1 @@
+description: See that make -f database/db.mk stamps/migrate-db-stamp really preserves data
