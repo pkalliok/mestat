@@ -21,11 +21,10 @@ $(PIDF): $(DEPLOY_JAR) test-server-unsetup
 	done
 
 external-tests: test-server-run
-	./testing/run-tests http://localhost:5005/
+	./testing/test-application http://localhost:5005/
 
 database-tests: stamps/initialise-db-stamp
 	./testing/test-database -h /tmp -p 5007 mestat
 
 .PHONY: external-tests database-tests
-
 
