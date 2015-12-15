@@ -1,1 +1,2 @@
 description: Implement /get-points?x=&y= to get a list of nearby points with their associated tags
+commit: An SQL query for getting points in order of proximity
