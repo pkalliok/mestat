@@ -11,6 +11,7 @@ database/pg-data:
 
 $(PIDF): database/pg-data
 	postgres -k /tmp -p 5007 -D $< & echo $$! > $@
+	sleep 2
 
 stamps/create-db-stamp: $(PIDF)
 	createdb -h /tmp -p 5007 mestat
