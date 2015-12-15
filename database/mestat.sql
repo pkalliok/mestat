@@ -12,6 +12,7 @@ create table if not exists tag (
 	id serial primary key,
 	name text not null,
 	ns text not null,
+	modtime timestamp not null default now(),
 	unique (ns, name)
 );
 

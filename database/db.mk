@@ -30,7 +30,7 @@ stamps/initialise-db-stamp: database/mestat-data.sql stamps/update-db-stamp
 	psql -h /tmp -p 5007 mestat < $<
 	touch $@
 
-stamps/migrate-database-stamp: database/backup.sql stamps/update-db-stamp
+stamps/migrate-db-stamp: database/backup.sql stamps/update-db-stamp
 	psql -h /tmp -p 5007 mestat < $<
 	touch $@
 
