@@ -1,5 +1,4 @@
-# mestat
-## helppo väline paikkojen tagaamiseksi
+# mestat - helppo väline paikkojen tagaamiseksi
 
 Tämä ohjelmisto on Panu Kalliokosken harjoitustyö Solitalla.  Sen
 tarkoitus on luoda mahdollisimman yksinkertainen www-käyttöliittymä,
@@ -17,6 +16,21 @@ toimiva tietokanta on PostgreSQL valmiiden paikkatieto-ominaisuuksien
 vuoksi.  Sovellus toteutetaan itsenäisenä http-palvelinprosessina
 Clojuren Ring-frameworkilla.  Kaikki komponentit eriytetään toisistaan
 Docker-säilöihin.
+
+### tietomalli
+
+Varsinaisessa domainissaan mestat pitää kirjaa vain kahdesta asiasta:
+sijainneista ja niihin liittyvistä tageista.  "Tagi" on mitä tahansa
+tekstiä, joka kuvaa sijainnin tiettyä ominaisuutta.  Lisäksi käyttäjillä
+on tunnistautumista varten käyttäjänimi ja salaisuus, joista pidetään
+vielä erikseen kirjaa.
+
+Tageilla on tekstisisältönsä lisäksi nimiavaruus, joka kertoo, minkä
+"tyylisestä" tagista on kyse.  Kunkin käyttäjän lisäämät tagit ovat
+hänen omassa nimiavaruudessaan, joka on sama kuin käyttäjän nimi.
+"system"-nimiavaruudessa on tageja, joita vain mestat-sovellus itse voi
+lisätä ja jotka sisältävät metatietoa sijainnista, kuten tietoa siitä,
+miten se on lisätty.
 
 ### käyttöliittymä
 ### testaus

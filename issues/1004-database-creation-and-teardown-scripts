@@ -2,3 +2,4 @@ description: Make scripts for setting up a new postgresql database for storing m
 commit: makefile rules for setting up a user-specific postgresql server in port 5007
 commit: SQL scripts for setting up and tearing down the database
 commit: tag, location_tag, webuser tables
+commit: textual documentation about the information model
