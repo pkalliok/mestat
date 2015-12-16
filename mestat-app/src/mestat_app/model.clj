@@ -1,8 +1,8 @@
 (ns mestat-app.model
-  (:require [yesql.core :refer [defqueries]]))
+  (:require [yesql.core :refer [defqueries]]
+            [clj-postgresql.core :as pg]))
 
-(defqueries "mestat_app/queries.sql"
-  {:connection "postgresql://localhost:5007/mestat"})
+(defqueries "mestat_app/queries.sql" {:connection (pg/spec)})
 
 (defn point-query-to-pointlist [pquery]
   (map (fn [point]
