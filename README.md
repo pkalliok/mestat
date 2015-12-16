@@ -15,7 +15,7 @@ mestat on tyypillinen SQL-tietokannan päälle rakennettu sovellus.  Alla
 toimiva tietokanta on PostgreSQL valmiiden paikkatieto-ominaisuuksien
 vuoksi.  Sovellus toteutetaan itsenäisenä http-palvelinprosessina
 Clojuren Ring-frameworkilla.  Kaikki komponentit eriytetään toisistaan
-Docker-säilöihin.
+Docker-säiliöihin.
 
 ### tietomalli
 
