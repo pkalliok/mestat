@@ -6,3 +6,4 @@ commit: decide on point representation within mestat, build conversion from DB q
 commit: declare param types to make queries work also with clj-postgresql
 commit: updated external test to test the api
 commit: model test for points-near
+commit: First version of search handler, test passes

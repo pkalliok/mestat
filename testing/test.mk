@@ -14,7 +14,8 @@ $(DEPLOY_JAR):
 	cd mestat-app && lein ring uberjar
 
 $(PIDF): $(DEPLOY_JAR) test-server-unsetup
-	java -jar $< > $(SERVER_LOG) & echo $$! > $@
+	PGHOST=localhost PGPORT=5007 PGDATABASE=mestat \
+	       java -jar $< > $(SERVER_LOG) & echo $$! > $@
 	until grep 'Started server on port 5005' $(SERVER_LOG); do \
 	echo "Waiting for server to come up..."; \
 	sleep 1; \
@@ -24,7 +25,7 @@ internal-tests:
 	cd mestat-app && PGHOST=localhost PGPORT=5007 PGDATABASE=mestat lein test
 
 external-tests: test-server-run stamps/initialise-db-stamp
-	./testing/test-application http://localhost:5005/
+	./testing/test-application http://localhost:5005
 
 database-tests: stamps/initialise-db-stamp
 	./testing/test-database -h /tmp -p 5007 mestat
