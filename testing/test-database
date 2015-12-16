@@ -14,7 +14,7 @@ run_test 'location information' \
 	 from location, location_tag, tag
 	 where location.id=location_tag.location
 	 and location_tag.tag = tag.id" \
-	'(60.16952,24.93545)|city|testuser'
+	'(24.93545,60.16952)|city|testuser'
 
 run_test 'user information' \
 	"select id, username from webuser" \

@@ -20,11 +20,16 @@ $(PIDF): $(DEPLOY_JAR) test-server-unsetup
 	sleep 1; \
 	done
 
-external-tests: test-server-run
+internal-tests:
+	cd mestat-app && lein test
+
+external-tests: test-server-run stamps/initialise-db-stamp
 	./testing/test-application http://localhost:5005/
 
 database-tests: stamps/initialise-db-stamp
 	./testing/test-database -h /tmp -p 5007 mestat
 
-.PHONY: external-tests database-tests
+test: database-tests internal-tests external-tests
+
+.PHONY: test internal-tests external-tests database-tests
 
