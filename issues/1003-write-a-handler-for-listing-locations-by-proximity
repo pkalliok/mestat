@@ -5,3 +5,4 @@ commit: tests for /search handler
 commit: decide on point representation within mestat, build conversion from DB query
 commit: declare param types to make queries work also with clj-postgresql
 commit: updated external test to test the api
+commit: model test for points-near
