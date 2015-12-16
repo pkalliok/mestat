@@ -7,6 +7,6 @@ WHERE loc.id = l.location
   AND l.tag = tag.id
   AND loc.mergedto IS NULL
 ORDER BY loc.coord <-> (:point)::point
-LIMIT :limit
-OFFSET :page * :limit;
+LIMIT (:limit)::integer
+OFFSET (:page)::integer * (:limit)::integer;
 

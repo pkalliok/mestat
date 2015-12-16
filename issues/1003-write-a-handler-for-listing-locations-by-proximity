@@ -3,3 +3,4 @@ commit: An SQL query for getting points in order of proximity
 commit: added clj-postgresql so that one can say (mestat-app.model/points-near {:page 0 :point (pg/point 0 0)})
 commit: tests for /search handler
 commit: decide on point representation within mestat, build conversion from DB query
+commit: declare param types to make queries work also with clj-postgresql
