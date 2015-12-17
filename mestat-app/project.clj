@@ -8,6 +8,7 @@
                  [compojure "1.4.0"]
                  [yesql "0.5.1"]
                  [clj-postgresql "0.4.0"]
+                 [ring-middleware-format "0.7.0"]
                  [ring/ring-defaults "0.1.5"]]
   :plugins [[lein-ring "0.9.7"]]
   :ring {:handler mestat-app.handler/app

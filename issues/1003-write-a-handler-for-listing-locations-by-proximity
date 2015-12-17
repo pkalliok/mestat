@@ -8,3 +8,4 @@ commit: updated external test to test the api
 commit: model test for points-near
 commit: First version of search handler, test passes
 commit: more tests for search, limit test is failing
+commit: handle data structure conversion to various formats with ring.middleware.format
