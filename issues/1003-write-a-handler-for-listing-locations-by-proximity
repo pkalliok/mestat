@@ -10,3 +10,4 @@ commit: First version of search handler, test passes
 commit: more tests for search, limit test is failing
 commit: handle data structure conversion to various formats with ring.middleware.format
 commit: better error handling and parameter conversions, limit and page params, tests pass
+commit: improve error reporting, still needs to report bad params
