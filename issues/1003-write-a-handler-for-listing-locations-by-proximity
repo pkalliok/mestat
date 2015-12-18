@@ -11,3 +11,5 @@ commit: more tests for search, limit test is failing
 commit: handle data structure conversion to various formats with ring.middleware.format
 commit: better error handling and parameter conversions, limit and page params, tests pass
 commit: improve error reporting, still needs to report bad params
+commit: proper error reporting, tests for them, tests pass (done)
+status: done

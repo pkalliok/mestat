@@ -10,16 +10,32 @@ run_test() {
 	exit 1
 }
 
+check_status() {
+	run_test "Checking status code $1" \
+	'grep -q "^HTTP/[0-9.]* '"$1"'" "$TMPFILE"'
+}
+
 run_test "Fetching mainpage $BASEURL" 'curl -is "$BASEURL" > "$TMPFILE"'
-run_test "Checking status code 200" 'grep -q "^HTTP/[0-9.]* 200" "$TMPFILE"'
+check_status 200
 run_test "Checking mainpage content" 'grep -q "Hello World" "$TMPFILE"'
 run_test "Fetching proximity query $BASEURL/api/v1/search" \
   'curl -is "$BASEURL/api/v1/search?long=24.93545&lat=60.16952" > "$TMPFILE"'
+check_status 200
 run_test "Checking query points" 'grep -q "24.93545,60.16952" "$TMPFILE"'
 run_test "Checking query tags" 'grep -q "capital" "$TMPFILE"'
 run_test "Fetching limited query with ?limit=1" \
   'curl -is "$BASEURL/api/v1/search?long=0&lat=0&limit=1" > "$TMPFILE"'
 run_test "Checking only one response given" \
   'test X`grep -o "coord" "$TMPFILE" | wc -l` = X1'
+run_test "Fetching invalid query without ?long or ?lat" \
+  'curl -is "$BASEURL/api/v1/search?limit=52" > "$TMPFILE"'
+check_status 400
+run_test "Checking response is JSON" \
+  'grep -qi "^content-type: application/json" "$TMPFILE"'
+run_test "Fetching nonexistent API call $BASEURL/api/v1/foobar" \
+  'curl -is "$BASEURL/api/v1/foobar" > "$TMPFILE"'
+check_status 404
+run_test "Checking response is JSON" \
+  'grep -q "error. *: *.this API call" "$TMPFILE"'
 run_test "Removing temporary file" 'rm "$TMPFILE"'
 
