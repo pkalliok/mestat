@@ -1,1 +1,3 @@
 description: expand and test test/mestat_app/handler_test.clj
+commit: handler unit tests are quite unnecessary with testing/test-application around (wontfix)
+status: wontfix
