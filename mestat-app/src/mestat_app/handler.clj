@@ -30,7 +30,8 @@
   (GET "/test" [] (ok {:message "yes, it works"})))
 
 (defroutes app-routes
-  (GET "/" [] "<p>Hello World</p>\n")
+  (GET "/" [] (response/resource-response "main.html" {:root "pages"}))
+  (GET "/hello" [] "<p>Hello World</p>\n")
   (wrap-restful-format
     (context "/api/v1" []
              search-handler
