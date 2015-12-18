@@ -12,6 +12,7 @@
                  [ring/ring-defaults "0.1.5"]]
   :plugins [[lein-ring "0.9.7"]]
   :ring {:handler mestat-app.handler/app
+         :nrepl {:start? true, :port 5014}
          :port 5005}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
