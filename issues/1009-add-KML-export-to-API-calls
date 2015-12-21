@@ -1,3 +1,5 @@
 description: In order to use these REST endpoints directly as data sources for KML layers, add conversion from point data structures to KML when asked for (with Accept:).
 commit: tests for KML generation
 commit: KML export working except point coding
+commit: KML and JSON exports working, model for points decided as vector (done)
+status: done

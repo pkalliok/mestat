@@ -4,12 +4,16 @@
 
 (defqueries "mestat_app/queries.sql" {:connection (pg/spec)})
 
-(defn point-long [point] :stub)
-(defn point-lat [point] :stub)
+(defn str->point [s]
+  (let [p (pg/point s)]
+    [(.x p) (.y p)]))
+
+(def point-long first)
+(def point-lat second)
 
 (defn point-query-to-pointlist [pquery]
   (map (fn [point]
-         {:coord (:coord (first point))
+         {:coord (str->point (:coord (first point)))
           :tags (map #(map % [:ns :name]) point)})
        (partition-by :id pquery)))
 
