@@ -4,6 +4,9 @@
 
 (defqueries "mestat_app/queries.sql" {:connection (pg/spec)})
 
+(defn point-long [point] :stub)
+(defn point-lat [point] :stub)
+
 (defn point-query-to-pointlist [pquery]
   (map (fn [point]
          {:coord (:coord (first point))

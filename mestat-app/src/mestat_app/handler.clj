@@ -2,9 +2,11 @@
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [mestat-app.model :as model]
+            [mestat-app.kml :as kml]
             [clj-postgresql.core :as pg]
             [ring.util.response :as response]
             [ring.middleware.format :refer [wrap-restful-format]]
+            [ring.middleware.format-response :refer [make-encoder]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
 
 (defn str->float [s]
@@ -37,7 +39,9 @@
              search-handler
              test-handler
              (route/not-found
-               (status 404 {:error "this API call does not exist\n"}))))
+               (status 404 {:error "this API call does not exist\n"})))
+    :formats [:json-kw :yaml :yaml-in-html :transit-json
+              (make-encoder kml/pointlist->kml kml/kml-mime-type)])
   (route/not-found "Not Found\n"))
 
 (def app
