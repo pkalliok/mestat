@@ -30,6 +30,13 @@ fetch_page 'limit search' "$BASEURL/api/v1/search?long=0&lat=0&limit=1"
 check_status 200
 run_test "Checking only one response given" \
   'test X`grep -o "coord" "$TMPFILE" | wc -l` = X1'
+run_test "Fetching KML"
+  'curl -is -H "Accept: application/vnd.google-earth.kml+xml" "$BASEURL/api/v1/search?long=0&lat=0"'
+check_status 200
+run_test "Checking response is KML" \
+  'grep -qi "^content-type: application/vnd.google-earth.kml+xml" "$TMPFILE"'
+run_test "Checking the KML has a point with coordinates" \
+  'grep -qi "<coordinates>[0-9.]*,[0-9.]*</coordinates>" "$TMPFILE"'
 fetch_page 'invalid search' "$BASEURL/api/v1/search?limit=52"
 check_status 400
 run_test "Checking response is JSON" \
