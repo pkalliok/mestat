@@ -1,4 +1,13 @@
 
+function installOnloadHandler(handler)
+{
+	var oldhandler = window.onload;
+	window.onload = function () {
+		if (oldhandler) oldhandler();
+		handler();
+	};
+}
+
 function initMap()
 {
 	var map = new L.Map('map');
@@ -17,4 +26,6 @@ function initMap()
 	map.setView(position, 9);
 	map.addLayer(osm);
 }
+
+installOnloadHandler(initMap);
 
