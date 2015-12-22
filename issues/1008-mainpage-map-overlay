@@ -3,3 +3,4 @@ commit: static page content for "/"; update tests
 commit: set up main.html to embed Leaflet maps, tests for this
 commit: add content types to handlers
 commit: height for map div and calling initMap on page load
+commit: call initMap from main.html, set more sensible defaults for zoom

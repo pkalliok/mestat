@@ -13,7 +13,7 @@ function initMap()
 	var map = new L.Map('map');
 	var osm = new L.TileLayer(
 		'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-		{minZoom: 4, maxZoom: 16, attribution:
+		{minZoom: 8, maxZoom: 22, attribution:
 			'Map data from <a href="http://openstreetmap.org">' +
 			'OpenStreetMap</a> contributors'});
 	var position = new L.LatLng(60.17671, 24.93892);
@@ -23,9 +23,9 @@ function initMap()
 					curpos.coords.longitude);
 		});
 	}
-	map.setView(position, 9);
+	map.setView(position, 15);
 	map.addLayer(osm);
 }
 
-installOnloadHandler(initMap);
+// installOnloadHandler(initMap);
 
