@@ -33,6 +33,7 @@
 
 (defroutes app-routes
   (GET "/" [] (response/resource-response "main.html" {:root "pages"}))
+  (GET "/static/:page" [page] (response/resource-response page {:root "pages"}))
   (GET "/hello" [] "<p>Hello World</p>\n")
   (wrap-restful-format
     (context "/api/v1" []
