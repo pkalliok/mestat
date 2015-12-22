@@ -1,2 +1,3 @@
 description: Implement searches for points with specific tags or namespaces (users who marked them).
 comment: maybe also points by date of addition.
+comment: maybe also distance restriction.
