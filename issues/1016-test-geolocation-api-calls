@@ -1,0 +1,1 @@
+description: The testing has thus far been in a non-geolocation enabled browser; find a way to spoof the geolocation data and test
