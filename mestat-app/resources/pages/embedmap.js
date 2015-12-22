@@ -23,8 +23,17 @@ function initMap()
 					curpos.coords.longitude);
 		});
 	}
+
 	map.setView(position, 15);
 	map.addLayer(osm);
+
+	var markers = new L.KML('/api/v1/search?long=' + position.lng +
+			'&lat=' + position.lat);
+	markers.on("loaded", function(e) {
+		map.fitBounds(e.target.getBounds());
+	});
+
+	map.addLayer(markers);
 }
 
 // installOnloadHandler(initMap);

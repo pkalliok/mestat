@@ -6,3 +6,5 @@ commit: height for map div and calling initMap on page load
 commit: call initMap from main.html, set more sensible defaults for zoom
 commit: added leaflet-plugins as a submodule
 commit: use compojure.route/resources to serve static content, add Leaflet KML plugin to main.html
+commit: Add a KML layer from search API to the map overlay (done)
+status: done
