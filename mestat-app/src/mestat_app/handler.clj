@@ -40,9 +40,8 @@
 
 (defroutes app-routes
   (GET "/" [] (serve-static "text/html" "main.html"))
-  (GET "/pages/:page" [page] (serve-static "text/html" page))
-  (GET "/css/:page" [page] (serve-static "text/css" page))
-  (GET "/js/:page" [page] (serve-static "text/javascript" page))
+  (route/resources "/pages" {:root "pages"})
+  (route/resources "/js" {:root "pages"} {"js" "text/javascript"})
   (GET "/hello" [] (html-response "<p>Hello World</p>\n"))
   (wrap-restful-format
     (context "/api/v1" []
