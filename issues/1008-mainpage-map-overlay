@@ -1,3 +1,4 @@
 description: Implement the location-specific overlay that shows nearby locations.  Possible backends: OSM, google maps.
 commit: static page content for "/"; update tests
 commit: set up main.html to embed Leaflet maps, tests for this
+commit: add content types to handlers

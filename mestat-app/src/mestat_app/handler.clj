@@ -31,10 +31,19 @@
 (def test-handler
   (GET "/test" [] (ok {:message "yes, it works"})))
 
+(defn html-response [html]
+  (response/content-type (ok html) "text/html"))
+
+(defn serve-static [mimetype page]
+  (response/content-type
+    (response/resource-response page {:root "pages"}) mimetype))
+
 (defroutes app-routes
-  (GET "/" [] (response/resource-response "main.html" {:root "pages"}))
-  (GET "/static/:page" [page] (response/resource-response page {:root "pages"}))
-  (GET "/hello" [] "<p>Hello World</p>\n")
+  (GET "/" [] (serve-static "text/html" "main.html"))
+  (GET "/pages/:page" [page] (serve-static "text/html" page))
+  (GET "/css/:page" [page] (serve-static "text/css" page))
+  (GET "/js/:page" [page] (serve-static "text/javascript" page))
+  (GET "/hello" [] (html-response "<p>Hello World</p>\n"))
   (wrap-restful-format
     (context "/api/v1" []
              search-handler

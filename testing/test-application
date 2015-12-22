@@ -24,9 +24,11 @@ check_status 200
 run_test "Checking test page content" 'grep -q "Hello World" "$TMPFILE"'
 fetch_page 'main page' "$BASEURL"
 check_status 200
+run_test "Checking mainpage is HTML" \
+  'grep -qi "content-type: text/html" "$TMPFILE"'
 run_test "Checking mainpage has a map div" 'grep -q "<div id=map>" "$TMPFILE"'
 run_test "Checking mainpage embeds a map" \
-  'grep -q "/static/embedmap.js" "$TMPFILE"'
+  'grep -q "/js/embedmap.js" "$TMPFILE"'
 fetch_page 'search' "$BASEURL/api/v1/search?long=24.93545&lat=60.16952"
 check_status 200
 run_test "Checking query points" 'grep -q "24.93545,60.16952" "$TMPFILE"'
