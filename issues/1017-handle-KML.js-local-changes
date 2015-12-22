@@ -1,1 +1,2 @@
 description: Either import KML.js into this project tree, or (better) clone leaflet-plugins on github, push changes there and see if we can get them merged by upstream.
+commit: leaflet-plugins forked on github, submodule updated to point to own repo

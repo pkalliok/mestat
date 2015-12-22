@@ -1,3 +1,3 @@
 [submodule "mestat-app/resources/pages/leaflet-plugins"]
 	path = mestat-app/resources/pages/leaflet-plugins
-	url = https://github.com/shramov/leaflet-plugins.git
+	url = https://github.com/pkalliok/leaflet-plugins.git
