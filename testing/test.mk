@@ -10,7 +10,7 @@ test-server-run: $(PIDF)
 
 .PHONY: test-server-run test-server-unsetup
 
-$(DEPLOY_JAR):
+$(DEPLOY_JAR): mestat-app/src
 	cd mestat-app && lein ring uberjar
 
 $(PIDF): $(DEPLOY_JAR) test-server-unsetup
