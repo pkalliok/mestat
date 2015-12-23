@@ -1,0 +1,1 @@
+description: create internal tests for make-point and make-origin in model_test.clj (both with extra parameters and without)
