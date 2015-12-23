@@ -29,7 +29,10 @@
           :tags (map #(mapv % [:ns :name]) point)})
        (partition-by :id pquery)))
 
-(defn points-near [p & {:keys [page limit] :or {page 0, limit 25}}]
+(defn points-near [p & {:keys [page limit username tagpat mindate maxdate
+                               maxdist] :or {page 0, limit 25}}]
   (point-query-to-pointlist
-    (db-points-near {:point (pg/point p), :page page, :limit limit})))
+    (db-points-near {:point (pg/point p) :page page :limit limit
+                     :username username :tagpat tagpat :mindate mindate
+                     :maxdate maxdate :maxdist maxdist})))
 
