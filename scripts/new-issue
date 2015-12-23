@@ -7,7 +7,7 @@ git stash -q --keep-index
 
 NUMBER=`ls issues | grep '^[0-9]\{4\}-' | tail -1 | cut -d- -f1` 
 FILE="issues/`expr $NUMBER + 1`-`echo "$@" | tr ' ' '-'`"
-echo 'description: ' > "$FILE"
+echo "description: $*" > "$FILE"
 if test -t 0; then
 	"$EDITOR" "$FILE" 
 else
