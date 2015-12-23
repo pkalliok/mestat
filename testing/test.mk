@@ -21,7 +21,7 @@ $(PIDF): $(DEPLOY_JAR) test-server-unsetup
 	sleep 1; \
 	done
 
-internal-tests:
+internal-tests: stamps/initialise-db-stamp
 	cd mestat-app && PGHOST=localhost PGPORT=5007 PGDATABASE=mestat lein test
 
 external-tests: test-server-run stamps/initialise-db-stamp

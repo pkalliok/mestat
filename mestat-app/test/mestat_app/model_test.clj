@@ -18,7 +18,12 @@
       (is (= (tag-ns tag2) "quux"))))
   (testing "points by proximity"
     (let [coord [25.46816 65.01236]
-          p (points-near coord)]
+          p (points-near coord :maxdist 300 :limit 3)
+          p2 (points-near coord :limit 1)
+          p3 (points-near coord :maxdist 0.001)]
+      (is (= (count p) 3))
       (is (= (:coord (first p)) coord))
-      (is (not= (:coord (second p)) coord)))))
+      (is (not= (:coord (second p)) coord))
+      (is (= (count p2) 1))
+      (is (= p2 p3)))))
 

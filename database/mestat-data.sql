@@ -9,7 +9,8 @@ insert into location(coord) values
 insert into tag(name, ns) values
  ('deleted', 'system'),
  ('city', 'testuser'),
- ('capital', 'testuser');
+ ('capital', 'testuser'),
+ ('lake', 'testuser');
 
-insert into location_tag(location, tag) values (1, 2), (1, 3), (2, 2);
+insert into location_tag(location, tag) values (1, 2), (1, 3), (2, 2), (3, 4);
 
