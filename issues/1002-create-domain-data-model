@@ -1,2 +1,3 @@
 description: Set up the database and the application to know about the form of data: points, tags, users.
 commit: point and pointlist models have been set
+commit: tests for point and tag models
