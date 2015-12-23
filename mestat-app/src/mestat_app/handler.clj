@@ -23,10 +23,13 @@
              limit (str->float limit)
              page (str->float page)
              maxdist (str->float maxdist)]
-         (or (and x y (ok (model/points-near (pg/point x y)
-                                             :maxdist (or maxdist 0.3)
-                                             :limit (or limit 15)
-                                             :page (or page 0))))
+         (or (and x y
+                  (ok (let [origin [x y]]
+                        (cons (model/make-origin origin)
+                              (model/points-near (pg/point x y)
+                                                 :maxdist (or maxdist 0.3)
+                                                 :limit (or limit 15)
+                                                 :page (or page 0))))))
              (status 400 {:error "missing search parameters"
                           :missing '(long lat)})))))
 

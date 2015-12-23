@@ -23,6 +23,12 @@
 (def tag-ns first)
 (def tag-name second)
 
+(defn make-point [coord tags & {:as params}]
+  (assoc params :coord coord :tags tags))
+
+(defn make-origin [coord]
+  (make-point coord (list (make-tag "system" "origin"))))
+
 (defn point-query-to-pointlist [pquery]
   (map (fn [point]
          {:coord (any->coord (:coord (first point)))
