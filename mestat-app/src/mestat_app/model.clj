@@ -31,7 +31,7 @@
 
 (defn points-near [p & {:keys [page limit username tagpat mindate maxdate
                                maxdist]
-                        :or {page 0, limit 25, maxdist 0.3}}]
+                        :or {page 0, limit 100}}]
   (point-query-to-pointlist
     (db-points-near {:point (pg/point p) :page page :limit limit
                      :username username :tagpat tagpat :mindate mindate

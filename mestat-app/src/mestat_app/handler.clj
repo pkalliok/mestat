@@ -17,13 +17,15 @@
   (response/status (ok body) status))
 
 (def search-handler
-  (GET "/search" [long lat limit page]
+  (GET "/search" [long lat limit page maxdist]
        (let [x (str->float long)
              y (str->float lat)
              limit (str->float limit)
-             page (str->float page)]
+             page (str->float page)
+             maxdist (str->float maxdist)]
          (or (and x y (ok (model/points-near (pg/point x y)
-                                             :limit (or limit 25)
+                                             :maxdist (or maxdist 0.3)
+                                             :limit (or limit 15)
                                              :page (or page 0))))
              (status 400 {:error "missing search parameters"
                           :missing '(long lat)})))))
