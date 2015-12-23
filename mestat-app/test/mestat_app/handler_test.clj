@@ -4,8 +4,8 @@
             [mestat-app.handler :refer :all]))
 
 (deftest test-app
-  (testing "main route"
-    (let [response (app (mock/request :get "/"))]
+  (testing "hello route"
+    (let [response (app (mock/request :get "/hello"))]
       (is (= (:status response) 200))
       (is (= (:body response) "<p>Hello World</p>\n"))))
 

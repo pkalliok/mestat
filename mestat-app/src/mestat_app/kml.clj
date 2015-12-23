@@ -1,6 +1,6 @@
 (ns mestat-app.kml
   (:require [clojure.string :refer [join]]
-            [mestat-app.model :refer [point-long point-lat]]))
+            [mestat-app.model :refer [coord-long coord-lat]]))
 
 (def kml-mime-type "application/vnd.google-earth.kml+xml")
 
@@ -9,7 +9,7 @@
     (str "<Placemark>\n"
          "<description>" (clojure.string/join ", " (map second tags))
          "</description>\n"
-         "<Point><coordinates>" (point-long coord) "," (point-lat coord)
+         "<Point><coordinates>" (coord-long coord) "," (coord-lat coord)
          "</coordinates></Point>\n"
          "</Placemark>\n")))
 

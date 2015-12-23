@@ -4,9 +4,10 @@
             [mestat-app.model :refer :all]))
 
 (deftest test-model
+  (testing "point conversions")
   (testing "points by proximity"
-    (let [loc "(25.46816,65.01236)"
-          p (points-near loc)]
-      (is (= (:coord (first p)) loc))
-      (is (not= (:coord (second p)) loc)))))
+    (let [coord [25.46816 65.01236]
+          p (points-near coord)]
+      (is (= (:coord (first p)) coord))
+      (is (not= (:coord (second p)) coord)))))
 
