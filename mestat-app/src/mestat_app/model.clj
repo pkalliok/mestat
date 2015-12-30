@@ -39,7 +39,26 @@
                                maxdist]
                         :or {page 0, limit 100}}]
   (point-query-to-pointlist
-    (db-points-near {:point (pg/point p) :page page :limit limit
+    (db-points-near {:coord (pg/point p) :page page :limit limit
                      :username username :tagpat tagpat :mindate mindate
                      :maxdate maxdate :maxdist maxdist})))
+
+(defn id-for-coord-maybe-create [coord]
+  (let [params {:coord (pg/point coord)}]
+    (when (empty? (db-location-id params)) (db-insert-location! params))
+    (:id (first (db-location-id params)))))
+
+(defn id-for-tag-maybe-create [tag]
+  (let [params {:ns (tag-ns tag) :name (tag-name tag)}]
+    (when (empty? (db-tag-id params)) (db-insert-tag! params))
+    (:id (first (db-tag-id params)))))
+
+(defn ensure-tag-bound! [tag-id location-id]
+  (let [params {:tag tag-id :loc location-id}]
+    (when (empty? (db-tag-bound? params)) (db-bind-tag! params))))
+
+(defn save-point! [point]
+  (let [loc-id (id-for-coord-maybe-create (:coord point))]
+    (doseq [tag (:tags point)]
+      (ensure-tag-bound! (id-for-tag-maybe-create tag) loc-id))))
 
