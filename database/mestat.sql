@@ -13,17 +13,22 @@ create table if not exists tag (
 	name text not null,
 	ns text not null,
 	modtime timestamp not null default now(),
+	priority integer,
+	icon text,
 	unique (ns, name)
 );
 
 create table if not exists location_tag (
 	location integer not null,
-	tag integer not null
+	tag integer not null,
+	unique (location, tag)
 );
 
 create table if not exists webuser (
 	id serial primary key,
 	username text not null unique,
-	identification text
+	identification text,
+	authscheme text not null default 'key',
+	unique (username)
 );
 

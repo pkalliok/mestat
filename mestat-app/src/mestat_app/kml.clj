@@ -7,6 +7,7 @@
 (defn point->kml [point]
   (let [{:keys [coord tags]} point]
     (str "<Placemark>\n"
+         "<name>" (clojure.string/join ", " (map second tags)) "</name>\n"
          "<description>" (clojure.string/join ", " (map second tags))
          "</description>\n"
          "<Point><coordinates>" (coord-long coord) "," (coord-lat coord)
