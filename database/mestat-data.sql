@@ -10,10 +10,10 @@ insert into location(coord) values
  (point '(31.5,61.0)');
 
 insert into tag(name, ns, priority) values
- ('deleted', 'system', 3),
- ('city', 'testuser', 5),
- ('capital', 'testuser', 6),
- ('lake', 'testuser', 5);
+ ('deleted', 'system', 10),
+ ('city', 'testuser', 50),
+ ('capital', 'testuser', 60),
+ ('lake', 'testuser', 50);
 
 insert into location_tag(location, tag) values (1, 2), (1, 3), (2, 2), (3, 4);
 

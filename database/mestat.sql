@@ -13,7 +13,7 @@ create table if not exists tag (
 	name text not null,
 	ns text not null,
 	modtime timestamp not null default now(),
-	priority integer,
+	priority integer not null default 50,
 	icon text,
 	unique (ns, name)
 );

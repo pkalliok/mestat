@@ -1,3 +1,4 @@
 description: add descriptions, custom markers, etc. for tags (into model & exports)
 commit: added priority and icon to tags
 commit: KML export only shows the most prioritised tag in <name>
+commit: change priority defaults
