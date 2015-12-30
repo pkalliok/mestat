@@ -42,7 +42,7 @@ function initMap()
 		{minZoom: 8, maxZoom: 22, attribution:
 			'Map data from <a href="http://openstreetmap.org">' +
 			'OpenStreetMap</a> contributors'});
-	mestatMap.addLayer(osm);
+	map.addLayer(osm);
 
 	if ('geolocation' in navigator) {
 		navigator.geolocation.getCurrentPosition(function (curpos) {
