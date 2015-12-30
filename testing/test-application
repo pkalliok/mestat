@@ -39,10 +39,12 @@ check_status 200
 run_test "Checking only two responses given" \
   'test X`grep -o "coord" "$TMPFILE" | wc -l` = X2'
 run_test "Fetching KML" \
-  'curl -is -H "Accept: application/vnd.google-earth.kml+xml" "$BASEURL/api/v1/search?long=0&lat=0&maxdist=1000" > "$TMPFILE"'
+  'curl -is -H "Accept: application/vnd.google-earth.kml+xml" "$BASEURL/api/v1/search?long=24.93545&lat=60.16952&maxdist=1000&limit=1" > "$TMPFILE"'
 check_status 200
 run_test "Checking response is KML" \
   'grep -qi "^content-type: application/vnd.google-earth.kml+xml" "$TMPFILE"'
+run_test "Checking the KML contains a city" \
+  'grep -qi "<name>city</name>" "$TMPFILE"'
 run_test "Checking the KML has a point with coordinates" \
   'grep -qi "<coordinates>[0-9.]*,[0-9.]*</coordinates>" "$TMPFILE"'
 fetch_page 'invalid search' "$BASEURL/api/v1/search?limit=52"

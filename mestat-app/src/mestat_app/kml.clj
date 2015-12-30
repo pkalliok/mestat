@@ -1,15 +1,14 @@
 (ns mestat-app.kml
   (:require [clojure.string :refer [join]]
-            [mestat-app.model :refer [coord-long coord-lat]]))
+            [mestat-app.model :refer [tag-name coord-long coord-lat]]))
 
 (def kml-mime-type "application/vnd.google-earth.kml+xml")
 
 (defn point->kml [point]
   (let [{:keys [coord tags]} point]
     (str "<Placemark>\n"
-         "<name>" (clojure.string/join ", " (map second tags)) "</name>\n"
-         "<description>" (clojure.string/join ", " (map second tags))
-         "</description>\n"
+         "<name>" (tag-name (first tags)) "</name>\n"
+         "<description>" (join ", " (map tag-name tags)) "</description>\n"
          "<Point><coordinates>" (coord-long coord) "," (coord-lat coord)
          "</coordinates></Point>\n"
          "</Placemark>\n")))
