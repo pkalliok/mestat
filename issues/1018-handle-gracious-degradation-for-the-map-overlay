@@ -1,2 +1,3 @@
 description: e.g. display default content if javascript is not enabled, and set sensible defaults for the div style (height&width).
 comment: also handle better the case where geolocation is not available.
+comment: there is now a messages list for missing javascript / geolocation.

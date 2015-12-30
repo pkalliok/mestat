@@ -1,2 +1,3 @@
 description: e.g. like this: by default, fill out the location field with user's geolocation.  If the user clicks on the map, make a new query there and put the new origin location into the location field.  Adjust query maxdistance when the user zooms the map.
 comment: investigate whether we can do some kind of postback call to add points from clicks on the map.
+commit: form for inputting points with tags

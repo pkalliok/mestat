@@ -18,9 +18,26 @@
  <link rel="stylesheet" type="text/css" href="/pages/mestat.css">
  <script type="text/javascript" src="/js/embedmap.js"></script>
 </head>
-<body onload="initMap();">
+<body onload="initMestat();">
+
 <h1>test page</h1>
 
+<ul id=messages>
+	<li id=jswarning>You don't seem to have Javascript enabled.</li>
+</ul>
+
 <div id=map></div>
+
+<form target="add-point" method=POST>
+<table border=0>
+<tr><th>Location (longitude, latitude):</th>
+<td><input id=longitude type=text> <input id=latitude type=text></td></tr>
+<tr><th>Tags (separated by commas):</th>
+<td><input id=tags type=text size=50></td></tr>
+</table>
+<input type=submit value="Mark location">
+</form>
+
 </body>
 </html>
+
