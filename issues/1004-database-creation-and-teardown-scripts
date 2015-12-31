@@ -7,3 +7,4 @@ commit: database initialisation with basic data, migration and initialisation ta
 commit: database import testing scripts (done)
 status: done
 commit: added forgotten testing script
+commit: add dependency from backup.sql to db creation for bootstrapping

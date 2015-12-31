@@ -18,7 +18,7 @@ stamps/create-db-stamp: $(PIDF)
 	createdb -h /tmp -p 5007 mestat
 	touch $@
 
-database/backup.sql: $(DB_DEFS)
+database/backup.sql: $(DB_DEFS) stamps/create-db-stamp
 	pg_dump --data-only -h /tmp -p 5007 mestat > $@
 
 stamps/update-db-stamp: $(DB_DEFS) database/backup.sql stamps/create-db-stamp
