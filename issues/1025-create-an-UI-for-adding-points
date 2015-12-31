@@ -2,3 +2,4 @@ description: e.g. like this: by default, fill out the location field with user's
 comment: investigate whether we can do some kind of postback call to add points from clicks on the map.
 commit: form for inputting points with tags
 commit: fix mestatMap to map
+commit: tag addition popups, still missing longitude and latitude fields

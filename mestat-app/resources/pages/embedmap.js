@@ -1,4 +1,6 @@
 
+//var mestatMap;
+
 function recenterMap(map, lat, lng)
 {
 	var position = new L.LatLng(lat, lng);
@@ -11,6 +13,23 @@ function recenterMap(map, lat, lng)
 	//markers.on("loaded", function(e) {
 	//	map.fitBounds(e.target.getBounds());
 	//});
+}
+
+function makeTagForm(coord)
+{
+	return '<form method=POST action="add-point">' +
+		'<p>Add new tag here:<br>' +
+		'<input type=text name=tags><br>' +
+		'<input type=submit value="Mark">' +
+		'</p></form>';
+}
+
+function addTagPopup(map, click)
+{
+	var p = L.popup();
+	p.setLatLng(click.latlng);
+	p.setContent(makeTagForm(click.latlng));
+	p.openOn(map);
 }
 
 function listItem(content)
@@ -37,12 +56,14 @@ function initMestat()
 function initMap()
 {
 	var map = new L.Map('map');
+	//mestatMap = map;
 	var osm = new L.TileLayer(
 		'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 		{minZoom: 8, maxZoom: 22, attribution:
 			'Map data from <a href="http://openstreetmap.org">' +
 			'OpenStreetMap</a> contributors'});
 	map.addLayer(osm);
+	map.on('click', function (e) { addTagPopup(map, e); });
 
 	if ('geolocation' in navigator) {
 		navigator.geolocation.getCurrentPosition(function (curpos) {
