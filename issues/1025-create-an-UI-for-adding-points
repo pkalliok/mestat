@@ -3,3 +3,4 @@ comment: investigate whether we can do some kind of postback call to add points 
 commit: form for inputting points with tags
 commit: fix mestatMap to map
 commit: tag addition popups, still missing longitude and latitude fields
+commit: basic tests for add-point

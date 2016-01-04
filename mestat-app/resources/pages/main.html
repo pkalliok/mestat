@@ -23,15 +23,18 @@
 <h1>test page</h1>
 
 <ul id=messages>
-	<li id=jswarning>You don't seem to have Javascript enabled.</li>
+	<li id=jswarning>You don't seem to have Javascript enabled.
+		There's no way I can get your current position without
+		Javascript.</li>
 </ul>
 
 <div id=map></div>
 
 <form action="add-point" method=POST>
 <table border=0>
-<tr><th>Location (longitude, latitude):</th>
-<td><input id=longitude type=text> <input id=latitude type=text></td></tr>
+<tr><th>Your current location:</th>
+<td>Long: <input id=longitude type=text>
+    Lat: <input id=latitude type=text></td></tr>
 <tr><th>Tags (separated by commas):</th>
 <td><input id=tags type=text size=50></td></tr>
 </table>

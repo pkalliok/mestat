@@ -2,12 +2,16 @@
 
 BASEURL="$1"
 TMPFILE="testing/page"
+FAILED=""
 
 run_test() {
 	echo -n "$1... "
 	eval "$2" && echo pass && return
 	echo FAIL
-	exit 1
+	echo "Contents of query:"
+	cat "$TMPFILE"
+	echo
+	FAILED="$1, $FAILED"
 }
 
 fetch_page() {
@@ -39,7 +43,9 @@ check_status 200
 run_test "Checking only two responses given" \
   'test X`grep -o "coord" "$TMPFILE" | wc -l` = X2'
 run_test "Fetching KML" \
-  'curl -is -H "Accept: application/vnd.google-earth.kml+xml" "$BASEURL/api/v1/search?long=24.93545&lat=60.16952&maxdist=1000&limit=1" > "$TMPFILE"'
+  'curl -is -H "Accept: application/vnd.google-earth.kml+xml" \
+    "$BASEURL/api/v1/search?long=24.93545&lat=60.16952&maxdist=1000&limit=1" \
+    > "$TMPFILE"'
 check_status 200
 run_test "Checking response is KML" \
   'grep -qi "^content-type: application/vnd.google-earth.kml+xml" "$TMPFILE"'
@@ -55,5 +61,17 @@ fetch_page 'nonexistent call' "$BASEURL/api/v1/foobar"
 check_status 404
 run_test "Checking response is JSON" \
   'grep -q "error. *: *.this API call" "$TMPFILE"'
+run_test "Posting new point data" \
+  'curl -is -d latitude=63.9417 -d longitude=-16.4558 \
+    --data-urlencode "tags=ice, jää" "$BASEURL/add-point" > "$TMPFILE"'
+check_status 201
+run_test "Checking redirection" \
+  'grep -qi "location: /?latitude=64.9417&longitude=-16.4558" "$TMPFILE"'
+fetch_page 'new point handler' "$BASEURL/add-point"
+check_status 400
+run_test "Checking missing parameters" \
+  'grep -qi "missing parameters:.*tags" "$TMPFILE"'
 run_test "Removing temporary file" 'rm "$TMPFILE"'
+
+test -n "$FAILED" && echo -e "\n\nSome tests failed: $FAILED" && exit 1
 
