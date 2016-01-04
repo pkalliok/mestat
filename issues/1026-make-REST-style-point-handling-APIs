@@ -1,0 +1,1 @@
+description: these include: /api/v1/point (POST), /api/v1/point/<lat>/<long> (GET, PUT)
