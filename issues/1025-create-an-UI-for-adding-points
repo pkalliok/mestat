@@ -6,3 +6,4 @@ commit: tag addition popups, still missing longitude and latitude fields
 commit: basic tests for add-point
 commit: first add-point-handler, not working due to CSRP
 commit: improve error reporting in tests
+commit: using CSRF token in tests

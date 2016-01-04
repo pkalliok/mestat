@@ -5,6 +5,7 @@
             [mestat-app.kml :as kml]
             [clj-postgresql.core :as pg]
             [ring.util.response :as response]
+            [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]
             [ring.middleware.format :refer [wrap-restful-format]]
             [ring.middleware.format-response :refer [make-encoder]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
@@ -70,6 +71,7 @@
   (wrap-restful-format
     (context "/api/v1" []
              search-handler
+             (GET "/get-csrf-token" [] (ok {:csrf-token *anti-forgery-token*}))
              test-handler
              (route/not-found
                (status 404 {:error "this API call does not exist\n"})))

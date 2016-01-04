@@ -2,27 +2,31 @@
 
 BASEURL="$1"
 TMPFILE="testing/page"
+COOKIES="testing/cookies"
+FAILED_PAGES="testing/failed-pages"
 FAILED=""
 URL="no page"
+rm "$FAILED_PAGES"
 
 run_test() {
 	echo -n "$1... "
 	eval "$2" && echo pass && return
 	echo FAIL
-	echo "Contents of query:"
-	cat "$TMPFILE"
-	echo
+	echo | cat "$TMPFILE" - >> "$FAILED_PAGES"
 	FAILED="$FAILED
 	$1 ($URL)"
 }
 
 post_page() {
-	run_test "Posting $1 $2" "curl -is '$2' -d foo=bar $3 > '$TMPFILE'"
+	run_test "Posting $1 $2" \
+		"curl -is -b '$COOKIES' -c '$COOKIES' '$2' \
+		--data-urlencode '__anti-forgery-token=$CSRF' $3 > '$TMPFILE'"
 	URL="$2 $3"
 }
 
 fetch_page() {
-	run_test "Fetching $1 $2" 'curl -is "'"$2"'" > "$TMPFILE"'
+	run_test "Fetching $1 $2" \
+		"curl -is -b '$COOKIES' -c '$COOKIES' '$2' > '$TMPFILE'"
 	URL="$2"
 }
 
@@ -41,6 +45,10 @@ run_test "Checking mainpage is HTML" \
 run_test "Checking mainpage has a map div" 'grep -q "<div id=map>" "$TMPFILE"'
 run_test "Checking mainpage embeds a map" \
   'grep -q "/js/embedmap.js" "$TMPFILE"'
+fetch_page 'CSRF token' "$BASEURL/api/v1/get-csrf-token"
+check_status 200
+CSRF=`grep -o '"csrf-token": *"[^"]*"' "$TMPFILE" | cut -d: -f2 | cut -d'"' -f2`
+run_test "Check we got a CSRF token" 'test -n "$CSRF"'
 fetch_page 'search' "$BASEURL/api/v1/search?long=24.93545&lat=60.16952"
 check_status 200
 run_test "Checking query points" 'grep -q "24.93545,60.16952" "$TMPFILE"'
@@ -80,7 +88,8 @@ post_page 'new point with missing parameters' "$BASEURL/add-point" "-d tags=a"
 check_status 400
 run_test "Checking missing parameters" \
   'grep -qi "missing parameters:.*longitude" "$TMPFILE"'
-run_test "Removing temporary file" 'rm "$TMPFILE"'
+run_test "Removing temporary file and cookies" 'rm "$TMPFILE" "$COOKIES"'
 
-test -n "$FAILED" && echo -e "\n\nSome tests failed: $FAILED" && exit 1
+test -n "$FAILED" && echo "\n\nSome tests failed: $FAILED" \
+	&& echo "See $FAILED_PAGES for details" && exit 1
 
