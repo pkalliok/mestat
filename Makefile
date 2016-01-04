@@ -7,7 +7,7 @@ include testing/test.mk
 package: $(DEPLOY_JAR)
 
 tags::
-	ctags -R mestat-app
+	ctags -R --exclude=leaflet mestat-app
 
 try-server: stamps/initialise-db-stamp
 	cd mestat-app && PGHOST=localhost PGPORT=5007 PGDATABASE=mestat \

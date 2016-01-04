@@ -16,6 +16,8 @@
 (defn status [status body]
   (response/status (ok body) status))
 
+(defn split-tags [tagstring] ["dummy"])
+
 (def search-handler
   (GET "/search" [long lat limit page maxdist]
        (let [x (str->float long)
@@ -33,6 +35,22 @@
              (status 400 {:error "missing search parameters"
                           :missing '(long lat)})))))
 
+(def add-point-handler
+  (routes
+    (GET "/add-point" []
+         (response/header (status 405 "Please use POST") "Allow" "POST"))
+    (POST "/add-point" [latitude longitude tags]
+          (let [x (str->float longitude)
+                y (str->float latitude)
+                tags (split-tags tags)
+                coord (model/any->coord [x y])
+                point (model/make-point coord tags)]
+            (or (and x y tags
+                     (do (model/save-point! point)
+                         (response/created
+                           (str "/?longitude=" x "&latitude=" y))))
+                (status 400 "Missing parameters: longitude, latitude"))))))
+
 (def test-handler
   (GET "/test" [] (ok {:message "yes, it works"})))
 
@@ -45,6 +63,7 @@
 
 (defroutes app-routes
   (GET "/" [] (serve-static "text/html" "main.html"))
+  add-point-handler
   (route/resources "/pages" {:root "pages"})
   (route/resources "/js" {:root "pages"} {"js" "text/javascript"})
   (GET "/hello" [] (html-response "<p>Hello World</p>\n"))
