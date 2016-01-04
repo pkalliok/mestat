@@ -18,10 +18,10 @@ function recenterMap(map, lat, lng)
 function makeTagForm(coord)
 {
 	return '<form method=POST action="add-point">' +
-		'<p>Add new tag here:<br>' +
-		'<input type=text name=tags><br>' +
-		'<input type=submit value="Mark">' +
-		'</p></form>';
+	  '<input type=hidden name=longitude value="' + coord.lng + '">' +
+	  '<input type=hidden name=latitude value="' + coord.lat + '">' +
+	  '<p>Add new tag here:<br><input type=text name=tags><br>' +
+	  '<input type=submit value="Mark"></p></form>';
 }
 
 function addTagPopup(map, click)
