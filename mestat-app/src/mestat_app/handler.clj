@@ -15,14 +15,14 @@
          (response/header (status 405 "Please use POST") "Allow" "POST"))
     (POST "/add-point" [latitude longitude tags]
           (let [x (str->float longitude)
-                y (str->float latitude)
-                tags (split-tags tags)
-                coord (model/any->coord [x y])
-                point (model/make-point coord tags)]
+                y (str->float latitude)]
             (or (and x y tags
-                     (do (model/save-point! point)
-                         (response/created
-                           (str "/?longitude=" x "&latitude=" y))))
+                     (let [tags (split-tags tags)
+                           coord (model/any->coord [x y])
+                           point (model/make-point coord tags)]
+                       (model/save-point! point)
+                       (response/created
+                         (str "/?latitude=" y "&longitude=" x))))
                 (status 400 "Missing parameters: longitude, latitude"))))))
 
 (defn html-response [html]

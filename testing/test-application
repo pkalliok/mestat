@@ -81,7 +81,7 @@ post_page "new point data" "$BASEURL/add-point" \
   '-d latitude=63.9417 -d longitude=-16.4558 --data-urlencode "tags=ice, jää"'
 check_status 201
 run_test "Checking redirection" \
-  'grep -qi "location: /?latitude=64.9417&longitude=-16.4558" "$TMPFILE"'
+  'grep -qi "location: /?latitude=63.9417&longitude=-16.4558" "$TMPFILE"'
 fetch_page 'new point handler' "$BASEURL/add-point"
 check_status 405
 post_page 'new point with missing parameters' "$BASEURL/add-point" "-d tags=a"
