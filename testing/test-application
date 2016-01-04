@@ -3,6 +3,7 @@
 BASEURL="$1"
 TMPFILE="testing/page"
 FAILED=""
+URL="no page"
 
 run_test() {
 	echo -n "$1... "
@@ -11,15 +12,18 @@ run_test() {
 	echo "Contents of query:"
 	cat "$TMPFILE"
 	echo
-	FAILED="$FAILED, $1"
+	FAILED="$FAILED
+	$1 ($URL)"
 }
 
 post_page() {
 	run_test "Posting $1 $2" "curl -is '$2' -d foo=bar $3 > '$TMPFILE'"
+	URL="$2 $3"
 }
 
 fetch_page() {
 	run_test "Fetching $1 $2" 'curl -is "'"$2"'" > "$TMPFILE"'
+	URL="$2"
 }
 
 check_status() {
@@ -75,7 +79,7 @@ check_status 405
 post_page 'new point with missing parameters' "$BASEURL/add-point" "-d tags=a"
 check_status 400
 run_test "Checking missing parameters" \
-  'grep -qi "missing parameters:.*tags" "$TMPFILE"'
+  'grep -qi "missing parameters:.*longitude" "$TMPFILE"'
 run_test "Removing temporary file" 'rm "$TMPFILE"'
 
 test -n "$FAILED" && echo -e "\n\nSome tests failed: $FAILED" && exit 1
