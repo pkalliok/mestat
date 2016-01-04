@@ -1,1 +1,2 @@
 description: implement split-tags, along with automatic namespacing with username from session
+commit: split-tags implemented but always tags to anonymous namespace

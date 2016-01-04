@@ -1,13 +1,16 @@
 (ns mestat-app.handler
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
+
             [mestat-app.model :as model]
             [mestat-app.util :refer :all]
             [mestat-app.api :as mestat-api]
             [ring.util.response :as response]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
 
-(defn split-tags [tagstring] ["dummy"])
+(defn split-tags [tagstring]
+  (map #(model/make-tag "anonymous" (clojure.string/trim %))
+       (clojure.string/split tagstring (re-pattern ","))))
 
 (def add-point-handler
   (routes
