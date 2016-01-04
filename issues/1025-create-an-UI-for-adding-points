@@ -7,3 +7,4 @@ commit: basic tests for add-point
 commit: first add-point-handler, not working due to CSRP
 commit: improve error reporting in tests
 commit: using CSRF token in tests
+comment: there has to be a way to get the CSRF token into forms, also without javascript for graceful degradation
