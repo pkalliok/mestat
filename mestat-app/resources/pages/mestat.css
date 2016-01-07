@@ -5,6 +5,10 @@ html, body, #map {
 	margin: 0;
 }
 
+#messages {
+	color: rgb(128,0,0);
+}
+
 #controls {
 	position: absolute;
 	right: 0px;
