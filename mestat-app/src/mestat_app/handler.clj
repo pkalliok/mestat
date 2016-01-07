@@ -24,8 +24,8 @@
                            coord (model/any->coord [x y])
                            point (model/make-point coord tags)]
                        (model/save-point! point)
-                       (response/created
-                         (str "/?latitude=" y "&longitude=" x))))
+                       (response/redirect
+                         (str "/?latitude=" y "&longitude=" x) :see-other)))
                 (status 400 "Missing parameters: longitude, latitude"))))))
 
 (defn html-response [html]

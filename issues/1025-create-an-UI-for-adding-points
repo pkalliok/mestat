@@ -9,3 +9,4 @@ commit: improve error reporting in tests
 commit: using CSRF token in tests
 comment: there has to be a way to get the CSRF token into forms, also without javascript for graceful degradation
 commit: debugged add-point-handler, tests pass
+commit: map popup tag form fixed and works

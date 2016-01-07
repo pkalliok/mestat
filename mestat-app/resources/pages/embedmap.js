@@ -3,9 +3,23 @@ var mestat = mestat || {};
 
 (function () {
 
+var csrfToken = "";
+
 function elem(name)
 {
 	return document.getElementById(name);
+}
+
+function jsonFetch(url, callback) {
+	var request = new XMLHttpRequest();
+	request.onreadystatechange = function () {
+		if (request.readyState === 4 && request.status === 200) {
+			callback(JSON.parse(request.responseText));
+		}
+	};
+	request.open("GET", url, true);
+	request.setRequestHeader("Accept", "application/json");
+	request.send();
 }
 
 function makeTagForm(coord)
@@ -13,6 +27,8 @@ function makeTagForm(coord)
 	return '<form method=POST action="add-point">' +
 	  '<input type=hidden name=longitude value="' + coord.lng + '">' +
 	  '<input type=hidden name=latitude value="' + coord.lat + '">' +
+	  '<input type=hidden name="__anti-forgery-token" value="' +
+	  csrfToken + '">' +
 	  '<p>Add new tag here:<br><input type=text name=tags><br>' +
 	  '<input type=submit value="Mark"></p></form>';
 }
@@ -92,6 +108,9 @@ mestat.initMestat = function ()
 	var msg = elem('messages');
 	var jsw = elem('jswarning');
 	msg.removeChild(jsw);
+	jsonFetch("/api/v1/get-csrf-token", function (response) {
+		csrfToken = response["csrf-token"];
+	});
 	initMap();
 };
 
