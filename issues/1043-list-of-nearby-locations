@@ -1,0 +1,1 @@
+description: add a list of nearby locations (basically search results) to the controls pane.  This could initially be filled in the HTML produced by the backend but refreshed each time a KML layer is added.
