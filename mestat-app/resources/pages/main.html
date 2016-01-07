@@ -30,8 +30,10 @@
  
  <form action="add-point" method=POST>
 	 <p>Your current location:<br>
-	 <input id=longitude name=longitude type=text size=10>,
-	 <input id=latitude name=latitude type=text size=10><br>
+	 <input id=latitude name=latitude type=text size=10
+		 onchange="mestat.jumpOnMap();">,
+	 <input id=longitude name=longitude type=text size=10
+		 onchange="mestat.jumpOnMap();"><br>
 	 Tags (separated by commas):<br>
 	 <input id=tags type=text size=30></p>
 	 <input type=submit value="Mark location">

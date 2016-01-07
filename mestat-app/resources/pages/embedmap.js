@@ -3,6 +3,11 @@ var mestat = mestat || {};
 
 (function () {
 
+function elem(name)
+{
+	return document.getElementById(name);
+}
+
 function makeTagForm(coord)
 {
 	return '<form method=POST action="add-point">' +
@@ -30,21 +35,22 @@ function listItem(content)
 
 function reportError(description)
 {
-	document.getElementById('messages').appendChild(listItem(description));
+	elem('messages').appendChild(listItem(description));
+}
+
+function updateCoords(coord)
+{
+	elem('longitude').value = coord.lng;
+	elem('latitude').value = coord.lat;
 }
 
 function recenterMap(map, lat, lng)
 {
 	var position = new L.LatLng(lat, lng);
-	document.getElementById('longitude').value = lng;
-	document.getElementById('latitude').value = lat;
+	updateCoords(position);
 	var markers = new L.KML('/api/v1/search?long=' + lng + '&lat=' + lat);
 	map.addLayer(markers);
 	map.setView(position, 15);
-
-	//markers.on("loaded", function(e) {
-	//	map.fitBounds(e.target.getBounds());
-	//});
 }
 
 mestat.recenterMap = recenterMap;
@@ -60,6 +66,12 @@ function initMap()
 			'OpenStreetMap</a> contributors'});
 	map.addLayer(osm);
 	map.on('click', function (e) { addTagPopup(map, e); });
+	map.on('move', function (e) { updateCoords(e.target.getCenter()); });
+
+	mestat.jumpOnMap = function () {
+		recenterMap(map, elem('latitude').value,
+				elem('longitude').value);
+	};
 
 	if ('geolocation' in navigator) {
 		navigator.geolocation.getCurrentPosition(function (curpos) {
@@ -77,8 +89,8 @@ function initMap()
 
 mestat.initMestat = function ()
 {
-	var msg = document.getElementById('messages');
-	var jsw = document.getElementById('jswarning');
+	var msg = elem('messages');
+	var jsw = elem('jswarning');
 	msg.removeChild(jsw);
 	initMap();
 };

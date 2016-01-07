@@ -1,1 +1,4 @@
 description: whenever the map is moved, update url and fields to show current location
+comment: url updating is probably not worthwhile, see https://developer.mozilla.org/en-US/docs/Web/API/History_API
+commit: latitude and longitude fields are updated on map move and move map when edited (done)
+status: done
