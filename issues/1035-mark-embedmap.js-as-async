@@ -2,3 +2,4 @@ description: mark embedmap.js as async to allow simultaneous page loading
 comment: this might not be worthwhile, as our default page is very small.
 comment: investigate how to use leaflet-plugins/.../KML.js with async
 commit: defer and async attributes for scripts
+comment: maybe also inline mestat.css

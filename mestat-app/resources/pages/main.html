@@ -20,26 +20,26 @@
 </head>
 <body onload="initMestat();">
 
-<h1>test page</h1>
-
-<ul id=messages>
+<div id=controls class=sidebar>
+ 
+ <ul id=messages>
 	<li id=jswarning>You don't seem to have Javascript enabled.
 		There's no way I can get your current position without
 		Javascript.</li>
-</ul>
+ </ul>
+ 
+ <form action="add-point" method=POST>
+	 <p>Your current location:<br>
+	 <input id=longitude name=longitude type=text size=10>,
+	 <input id=latitude name=latitude type=text size=10><br>
+	 Tags (separated by commas):<br>
+	 <input id=tags type=text size=30></p>
+	 <input type=submit value="Mark location">
+ </form>
+ 
+</div>
 
 <div id=map></div>
-
-<form action="add-point" method=POST>
-<table border=0>
-<tr><th>Your current location:</th>
-<td>Long: <input id=longitude type=text>
-    Lat: <input id=latitude type=text></td></tr>
-<tr><th>Tags (separated by commas):</th>
-<td><input id=tags type=text size=50></td></tr>
-</table>
-<input type=submit value="Mark location">
-</form>
 
 </body>
 </html>
