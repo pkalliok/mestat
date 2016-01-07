@@ -29,7 +29,7 @@ function makeTagForm(coord)
 	  '<input type=hidden name=latitude value="' + coord.lat + '">' +
 	  '<input type=hidden name="__anti-forgery-token" value="' +
 	  csrfToken + '">' +
-	  '<p>Add new tag here:<br><input type=text name=tags><br>' +
+	  '<p>Add new tag here:<br><input type=text id=tagpop name=tags><br>' +
 	  '<input type=submit value="Mark"></p></form>';
 }
 
@@ -39,6 +39,7 @@ function addTagPopup(map, click)
 	p.setLatLng(click.latlng);
 	p.setContent(makeTagForm(click.latlng));
 	p.openOn(map);
+	elem('tagpop').focus();
 }
 
 function listItem(content)
