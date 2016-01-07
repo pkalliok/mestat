@@ -1,0 +1,1 @@
+description: mark embedmap.js as async to allow simultaneous page loading
