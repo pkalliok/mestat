@@ -1,19 +1,7 @@
 
-//var mestatMap;
+var mestat = mestat || {};
 
-function recenterMap(map, lat, lng)
-{
-	var position = new L.LatLng(lat, lng);
-	document.getElementById('longitude').value = lng;
-	document.getElementById('latitude').value = lat;
-	var markers = new L.KML('/api/v1/search?long=' + lng + '&lat=' + lat);
-	map.addLayer(markers);
-	map.setView(position, 15);
-
-	//markers.on("loaded", function(e) {
-	//	map.fitBounds(e.target.getBounds());
-	//});
-}
+(function () {
 
 function makeTagForm(coord)
 {
@@ -45,18 +33,26 @@ function reportError(description)
 	document.getElementById('messages').appendChild(listItem(description));
 }
 
-function initMestat()
+function recenterMap(map, lat, lng)
 {
-	var msg = document.getElementById('messages');
-	var jsw = document.getElementById('jswarning');
-	msg.removeChild(jsw);
-	initMap();
+	var position = new L.LatLng(lat, lng);
+	document.getElementById('longitude').value = lng;
+	document.getElementById('latitude').value = lat;
+	var markers = new L.KML('/api/v1/search?long=' + lng + '&lat=' + lat);
+	map.addLayer(markers);
+	map.setView(position, 15);
+
+	//markers.on("loaded", function(e) {
+	//	map.fitBounds(e.target.getBounds());
+	//});
 }
+
+mestat.recenterMap = recenterMap;
 
 function initMap()
 {
 	var map = new L.Map('map');
-	//mestatMap = map;
+	mestat.map = map;
 	var osm = new L.TileLayer(
 		'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 		{minZoom: 8, maxZoom: 22, attribution:
@@ -74,6 +70,18 @@ function initMap()
 					error.message);
 			recenterMap(map, 60.17671, 24.93892);
 		});
+	} else {
+		reportError("Your browser does not support geolocation");
 	}
 }
+
+mestat.initMestat = function ()
+{
+	var msg = document.getElementById('messages');
+	var jsw = document.getElementById('jswarning');
+	msg.removeChild(jsw);
+	initMap();
+};
+
+})();
 
