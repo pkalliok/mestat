@@ -1,1 +1,2 @@
 description: model handlers and data structures for user data
+comment: also add email to user information (for connecting new browsers)

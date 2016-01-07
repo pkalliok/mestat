@@ -1,1 +1,2 @@
 description: form for inputting preferred user name (checked for duplicates), handler for setting up credentials and setting identification cookie
+depends: 1047
