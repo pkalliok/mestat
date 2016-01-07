@@ -1,1 +1,2 @@
 description: save the last viewing point for each user to use as a new default location when looking at the map; put this into latitude/longitude fields
+commit: mark depends
