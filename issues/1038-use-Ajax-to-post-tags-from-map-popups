@@ -1,0 +1,1 @@
+description: change the static HTML in makeTagForm to generated DOM elements with event handlers for posting the tags
