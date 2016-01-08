@@ -1,2 +1,6 @@
 description: this could be e.g. a list of last added points, and a map view of the last place viewed (or a default view).
 depends: 1041
+description: [1021] currently the map might zoom outside where you are, this is undesirable
+comment: [1021] KML generation could generate a <LookAt> element from system.origin tag
+comment: [1021] also maybe convert user IP to position if geolocation is not available
+relates: [1021] 1042

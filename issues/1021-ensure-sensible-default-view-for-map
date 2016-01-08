@@ -2,4 +2,6 @@ description: currently the map might zoom outside where you are, this is undesir
 commit: added user's own location to search replies, tests broken
 comment: KML generation could generate a <LookAt> element from system.origin tag
 comment: also maybe convert user IP to position if geolocation is not available
-relates: 1042
+merged-to: 1042
+commit: merged to 1042 (done)
+status: done
