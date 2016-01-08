@@ -3,7 +3,7 @@
 test -z "$*" && echo "Give issue summary on command line" && exit 1
 test -z "$EDITOR" && EDITOR=sensible-editor
 
-git stash -q --keep-index
+git stash -q
 
 NUMBER=`ls issues | grep '^[0-9]\{4\}-' | tail -1 | cut -d- -f1` 
 FILE="issues/`expr $NUMBER + 1`-`echo "$@" | tr ' ' '-'`"
