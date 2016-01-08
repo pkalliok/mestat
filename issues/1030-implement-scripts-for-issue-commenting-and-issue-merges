@@ -1,2 +1,3 @@
 description: implement scripts for issue commenting and issue merges, or arbitrary issue relationships
 commit: example of a merge
+comment: issue relationships should be probably added with a comment (to both issues) and a reciprocal relation field
