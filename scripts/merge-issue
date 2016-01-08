@@ -1,0 +1,12 @@
+#!/bin/bash
+
+fromissue="$1"; shift
+toissue="$1"; shift
+
+test -z "$fromissue" && usage
+test -z "$toissue" && usage
+
+
+egrep -v '^(commit|status):' issues/1021-ensure-sensible-default-view-for-map | sed 's/: /&[1021] /' >> issues/1042-give-the-user-something-to-look-at-while-geolocation-loads 
+echo merged-to: 1042 >> issues/1021-...
+./scripts/commit-to-issue 1021 'merged to 1042 (done)'
