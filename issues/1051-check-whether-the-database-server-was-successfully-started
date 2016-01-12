@@ -1,0 +1,1 @@
+description: in makefile rules, check whether the database server was successfully started (don't just start in background)
