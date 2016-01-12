@@ -1,0 +1,5 @@
+description: questions for supervisor:
+- mitä hyötyä on olla erikseen hiccup ja stax?
+- miten hiccupissa on tarkoitus lisätä doctype-deklaraatiot?
+- onko JS-testaussuunnitelma hyvä?
+- pitäisikö tehdä jokin JS-minifikaatioautomaatio?
