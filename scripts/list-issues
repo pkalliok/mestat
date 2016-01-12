@@ -1,3 +1,5 @@
 #!/bin/bash
 
-grep -L '^status: done' issues/*
+( grep -L '^status: done' issues/* | xargs grep -l "$1";
+grep -L '^status: done' issues/* | grep "$1" ) | sort -u
+
