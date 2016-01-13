@@ -85,10 +85,12 @@ function initMap()
 	map.on('click', function (e) { addTagPopup(map, e); });
 	map.on('move', function (e) { updateCoords(e.target.getCenter()); });
 
-	mestat.jumpOnMap = function () {
+	mestat.jumpOnMap = function jumpOnMap() {
 		recenterMap(map, elem('latitude').value,
 				elem('longitude').value);
 	};
+
+	mestat.jumpOnMap();
 
 	if ('geolocation' in navigator) {
 		navigator.geolocation.getCurrentPosition(function (curpos) {
@@ -97,7 +99,6 @@ function initMap()
 		}, function (error) {
 			reportError("Could not get your current position: " +
 					error.message);
-			recenterMap(map, 60.17671, 24.93892);
 		});
 	} else {
 		reportError("Your browser does not support geolocation");

@@ -4,3 +4,4 @@ description: [1021] currently the map might zoom outside where you are, this is 
 comment: [1021] KML generation could generate a <LookAt> element from system.origin tag
 comment: [1021] also maybe convert user IP to position if geolocation is not available
 relates: [1021] 1042
+relates: 1039
