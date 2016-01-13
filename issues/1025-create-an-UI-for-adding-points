@@ -13,3 +13,4 @@ commit: map popup tag form fixed and works
 commit: autofocus tag field in tag popup
 comment: still need CSRF token field to the static tag adding field
 commit: mark work to do
+commit: updated tests that were forgotten in 9659017e
