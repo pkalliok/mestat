@@ -1,23 +1,21 @@
 (ns mestat-app.kml
   (:require [clojure.string :refer [join]]
+            [hiccup.core :refer [html]]
             [mestat-app.model :refer [tag-name coord-long coord-lat]]))
 
 (def kml-mime-type "application/vnd.google-earth.kml+xml")
 
-(defn point->kml [point]
+(defn point->kml-element [point]
   (let [{:keys [coord tags]} point]
-    (str "<Placemark>\n"
-         "<name>" (tag-name (first tags)) "</name>\n"
-         "<description>" (join ", " (map tag-name tags)) "</description>\n"
-         "<Point><coordinates>" (coord-long coord) "," (coord-lat coord)
-         "</coordinates></Point>\n"
-         "</Placemark>\n")))
+    [:Placemark [:name (tag-name (first tags))]
+     [:description (join ", " (map tag-name tags))]
+     [:point [:coordinates (coord-long coord) "," (coord-lat coord)]]]))
+
+(defn pointlist->kml-element [pointlist]
+  [:kml {:xmlns "http://www.opengis.net/kml/2.2"}
+   [:Document (map point->kml-element pointlist)]])
 
 (defn pointlist->kml [pointlist]
   (str "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-       "<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n"
-       "<Document>\n"
-       (join "\n" (map point->kml pointlist))
-       "</Document>\n"
-       "</kml>\n"))
+       (html (pointlist->kml-element pointlist))))
 
