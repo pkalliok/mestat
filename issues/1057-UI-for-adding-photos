@@ -1,0 +1,1 @@
+description: I guess people would like to add photos to locations, in addition to tags.  Investigate whether this is worthwhile.  Also check if this can be done by EXIF location metadata (how common is it really?) or if we have to implement our own location tagging from the geolocation API.
