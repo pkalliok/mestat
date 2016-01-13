@@ -1,1 +1,2 @@
 description: e.g. test with Javascript that Leaflet loads, OSM and KML layers are imported, etc.
+commit: refactored embedmap.js a little for testing

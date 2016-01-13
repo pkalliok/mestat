@@ -70,6 +70,26 @@ function recenterMap(map, lat, lng)
 	map.setView(position, 15);
 }
 
+function setMapToCurrentPosition(map)
+{
+	if ('geolocation' in navigator) {
+		navigator.geolocation.getCurrentPosition(function (curpos) {
+			recenterMap(map, curpos.coords.latitude,
+					curpos.coords.longitude);
+		}, function (error) {
+			reportError("Could not get your current position: " +
+					error.message);
+		});
+	} else {
+		reportError("Your browser does not support geolocation");
+	}
+}
+
+function jumpToFieldValues(map)
+{
+	recenterMap(map, elem('latitude').value, elem('longitude').value);
+}
+
 mestat.recenterMap = recenterMap;
 
 function initMap()
@@ -85,24 +105,10 @@ function initMap()
 	map.on('click', function (e) { addTagPopup(map, e); });
 	map.on('move', function (e) { updateCoords(e.target.getCenter()); });
 
-	mestat.jumpOnMap = function jumpOnMap() {
-		recenterMap(map, elem('latitude').value,
-				elem('longitude').value);
-	};
+	mestat.jumpOnMap = function jumpOnMap() { jumpToFieldValues(map); };
 
-	mestat.jumpOnMap();
-
-	if ('geolocation' in navigator) {
-		navigator.geolocation.getCurrentPosition(function (curpos) {
-			recenterMap(map, curpos.coords.latitude,
-					curpos.coords.longitude);
-		}, function (error) {
-			reportError("Could not get your current position: " +
-					error.message);
-		});
-	} else {
-		reportError("Your browser does not support geolocation");
-	}
+	jumpToFieldValues(map);
+	setMapToCurrentPosition(map);
 }
 
 mestat.initMestat = function ()
