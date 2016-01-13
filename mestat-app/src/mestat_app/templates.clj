@@ -20,14 +20,14 @@
         "You don't seem to have Javascript enabled.  There's no way I can get "
         "your current position without Javascript."]]
       [:form {:action "add-point" :method "POST"}
+       [:input#csrftoken {:name "__anti-forgery-token" :type "hidden"
+                          :value *anti-forgery-token*}]
        [:p "Your current location:" [:br]
-        [:input#csrftoken {:name "__anti-forgery-token" :type "hidden"
-                           :value *anti-forgery-token*}]
         [:input#latitude {:name "latitude" :type "text" :size "10"
                           :value latitude :onchange "mestat.jumpOnMap();"}]
         [:input#longitude {:name "longitude" :type "text" :size "10"
                            :value longitude :onchange "mestat.jumpOnMap();"}]
-        "Tags (separated by commas):" [:br]
+        [:br] "Tags (separated by commas):" [:br]
         [:input#tags {:name "tags" :type "text" :size "30"}]]
        [:input {:type "submit" :value "Mark location"}]]]
      [:div#map]]))

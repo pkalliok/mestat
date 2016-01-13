@@ -16,3 +16,4 @@ commit: mark work to do
 commit: updated tests that were forgotten in 9659017e
 commit: added csrf-token field to static tag addition form (done)
 status: done
+commit: in popup tag forms, get CSRF token from page instead of XHR call

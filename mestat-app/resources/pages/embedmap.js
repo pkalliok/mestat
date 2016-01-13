@@ -116,9 +116,7 @@ mestat.initMestat = function ()
 	var msg = elem('messages');
 	var jsw = elem('jswarning');
 	msg.removeChild(jsw);
-	jsonFetch("/api/v1/get-csrf-token", function (response) {
-		csrfToken = response["csrf-token"];
-	});
+	csrfToken = elem('csrftoken').value;
 	initMap();
 };
 
