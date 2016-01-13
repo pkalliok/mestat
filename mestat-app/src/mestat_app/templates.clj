@@ -1,5 +1,6 @@
 (ns mestat-app.templates
-  (:require [hiccup.page :refer [html4 html5]]))
+  (:require [hiccup.page :refer [html4 html5]]
+            [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]))
 
 (defn main-page [latitude longitude]
   (html5
@@ -20,6 +21,8 @@
         "your current position without Javascript."]]
       [:form {:action "add-point" :method "POST"}
        [:p "Your current location:" [:br]
+        [:input#csrftoken {:name "__anti-forgery-token" :type "hidden"
+                           :value *anti-forgery-token*}]
         [:input#latitude {:name "latitude" :type "text" :size "10"
                           :value latitude :onchange "mestat.jumpOnMap();"}]
         [:input#longitude {:name "longitude" :type "text" :size "10"

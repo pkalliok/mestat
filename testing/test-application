@@ -53,6 +53,8 @@ fetch_page 'main page with location parameters' \
 check_status 200
 run_test "Checking location got passed on" \
   'grep -q "value=\"30.559\"" "$TMPFILE"'
+run_test "Checking it has the CSRF token" \
+  'grep -q "name=\"__anti-forgery-token\"" "$TMPFILE"'
 fetch_page 'CSRF token' "$BASEURL/api/v1/get-csrf-token"
 check_status 200
 CSRF=`grep -o '"csrf-token": *"[^"]*"' "$TMPFILE" | cut -d: -f2 | cut -d'"' -f2`
