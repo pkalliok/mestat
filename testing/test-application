@@ -87,7 +87,7 @@ check_status 405
 post_page 'new point with missing parameters' "$BASEURL/add-point" "-d tags=a"
 check_status 400
 run_test "Checking missing parameters" \
-  'grep -qi "missing parameters:.*longitude" "$TMPFILE"'
+  'grep -qi "malformed parameters:.*longitude" "$TMPFILE"'
 run_test "Removing temporary file and cookies" 'rm "$TMPFILE" "$COOKIES"'
 
 test -n "$FAILED" && echo "\n\nSome tests failed: $FAILED" \

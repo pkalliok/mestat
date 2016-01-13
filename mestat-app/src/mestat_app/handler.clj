@@ -1,7 +1,6 @@
 (ns mestat-app.handler
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
-
             [mestat-app.model :as model]
             [mestat-app.util :refer :all]
             [mestat-app.api :as mestat-api]
@@ -16,17 +15,17 @@
   (routes
     (GET "/add-point" []
          (response/header (status 405 "Please use POST") "Allow" "POST"))
-    (POST "/add-point" [latitude longitude tags]
-          (let [x (str->float longitude)
-                y (str->float latitude)]
-            (or (and x y tags
-                     (let [tags (split-tags tags)
-                           coord (model/any->coord [x y])
-                           point (model/make-point coord tags)]
-                       (model/save-point! point)
-                       (response/redirect
-                         (str "/?latitude=" y "&longitude=" x) :see-other)))
-                (status 400 "Missing parameters: longitude, latitude"))))))
+    (POST "/add-point" [tags latitude :<< as-float longitude :<< as-float]
+          (or (and tags (let [tags (split-tags tags)
+                              coord (model/any->coord [longitude latitude])
+                              point (model/make-point coord tags)]
+                          (model/save-point! point)
+                          (response/redirect
+                            (str "/?latitude=" latitude
+                                 "&longitude=" longitude) :see-other)))
+              (status 400 "Missing parameters: tags")))
+    (POST "/add-point" [latitude longitude]
+          (status 400 "Malformed parameters: latitude, longitude"))))
 
 (defn html-response [html]
   (response/content-type (ok html) "text/html"))
@@ -34,6 +33,10 @@
 (defn serve-static [mimetype page]
   (response/content-type
     (response/resource-response page {:root "pages"}) mimetype))
+
+;(def main-page-handler
+  ;(GET "/" [latitude :<< as-float longitude :<< as-float]
+       ;(templates/main-page
 
 (defroutes app-routes
   (GET "/" [] (serve-static "text/html" "main.html"))

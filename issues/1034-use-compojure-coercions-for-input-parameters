@@ -1,2 +1,3 @@
 description: declare util/as-float as use it as :<< qualifier in add-point-handler, search-handler etc.
 comment: it's also necessary to ensure proper error reporting by cascading different kinds of handlers (one real handler, one for malformed/missing params, one for wrong method)
+commit: replaced str->float with as-float, used in coercions

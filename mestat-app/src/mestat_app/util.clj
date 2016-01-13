@@ -1,7 +1,7 @@
 (ns mestat-app.util
   (:require [ring.util.response :as response]))
 
-(defn str->float [s]
+(defn as-float [s]
   (and s (try (Float/parseFloat s) (catch NumberFormatException _ nil))))
 
 (def ok response/response)

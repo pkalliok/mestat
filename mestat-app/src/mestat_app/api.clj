@@ -10,21 +10,20 @@
             [ring.middleware.format-response :refer [make-encoder]]))
 
 (def search-handler
-  (GET "/search" [long lat limit page maxdist]
-       (let [x (str->float long)
-             y (str->float lat)
-             limit (str->float limit)
-             page (str->float page)
-             maxdist (str->float maxdist)]
-         (or (and x y
-                  (ok (let [origin [x y]]
-                        (cons (model/make-origin origin)
-                              (model/points-near (pg/point x y)
-                                                 :maxdist (or maxdist 0.3)
-                                                 :limit (or limit 15)
-                                                 :page (or page 0))))))
-             (status 400 {:error "missing search parameters"
-                          :missing '(long lat)})))))
+  (routes
+    (GET "/search" [long :<< as-float lat :<< as-float limit page maxdist]
+         (let [limit (as-float limit)
+               page (as-float page)
+               maxdist (as-float maxdist)]
+           (ok (let [origin [long lat]]
+                 (cons (model/make-origin origin)
+                       (model/points-near origin
+                                          :maxdist (or maxdist 0.3)
+                                          :limit (or limit 15)
+                                          :page (or page 0)))))))
+    (GET "/search" [long lat]
+         (status 400 {:error "missing search parameters"
+                      :missing '(long lat)}))))
 
 (def api-routes
   (wrap-restful-format
