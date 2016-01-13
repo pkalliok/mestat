@@ -1,2 +1,4 @@
 description: implement split-tags, along with automatic namespacing with username from session
 commit: split-tags implemented but always tags to anonymous namespace
+moved-to: 1053
+commit: move rest of work to a more appropriately named issue
