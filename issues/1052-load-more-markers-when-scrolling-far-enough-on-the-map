@@ -1,0 +1,2 @@
+description: upon loading markers, save their bounding rectangle and load more when the map has scrolled outside that.
+comment: it would be nice if we could supress duplicates.
