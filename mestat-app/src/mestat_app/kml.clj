@@ -8,7 +8,7 @@
 (defn point->kml-element [point]
   (let [{:keys [coord tags]} point]
     [:Placemark [:name (tag-name (first tags))]
-     [:description (join ", " (map tag-name tags))]
+     (if (> (count tags) 1) [:description (join ", " (map tag-name tags))])
      [:point [:coordinates (coord-long coord) "," (coord-lat coord)]]]))
 
 (defn pointlist->kml-element [pointlist]
