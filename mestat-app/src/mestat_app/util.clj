@@ -2,7 +2,7 @@
   (:require [ring.util.response :as response]))
 
 (defn as-float [s]
-  (and s (try (Float/parseFloat s) (catch NumberFormatException _ nil))))
+  (and s (try (Double/parseDouble s) (catch NumberFormatException _ nil))))
 
 (def ok response/response)
 (defn status [status body]
