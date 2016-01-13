@@ -9,26 +9,38 @@
             [ring.middleware.format :refer [wrap-restful-format]]
             [ring.middleware.format-response :refer [make-encoder]]))
 
-(def search-handler
-  (routes
-    (GET "/search" [long :<< as-float lat :<< as-float limit page maxdist]
-         (let [limit (as-float limit)
-               page (as-float page)
-               maxdist (as-float maxdist)]
-           (ok (let [origin [long lat]]
-                 (cons (model/make-origin origin)
-                       (model/points-near origin
-                                          :maxdist (or maxdist 0.3)
-                                          :limit (or limit 15)
-                                          :page (or page 0)))))))
-    (GET "/search" [long lat]
-         (status 400 {:error "missing search parameters"
-                      :missing '(long lat)}))))
+(defroutes search-handler
+  (GET "/search" [long :<< as-float lat :<< as-float limit page maxdist]
+       (let [limit (as-float limit)
+             page (as-float page)
+             maxdist (as-float maxdist)]
+         (ok (let [origin (model/make-coord long lat)]
+               (cons (model/make-origin origin)
+                     (model/points-near origin
+                                        :maxdist (or maxdist 0.3)
+                                        :limit (or limit 15)
+                                        :page (or page 0)))))))
+  (GET "/search" [long lat]
+       (status 400 {:error "missing search parameters"
+                    :missing '(long lat)})))
+
+(defroutes point-handler
+  (GET "/point/:long/:lat" [long :<< as-float lat :<< as-float]
+       (let [result (model/point-at (model/make-coord long lat))]
+         (if result (ok result)
+           (status 404 {:error "no such point" :long long :lat lat}))))
+  (GET "/point/:long/:lat" [long lat]
+       (status 400 {:error "malformed parameters"
+                    :types {:long :float :lat :float}}))
+  (GET "/point" []
+       (status 400 {:error "missing parameters"
+                    :missing '(long lat)})))
 
 (def api-routes
   (wrap-restful-format
     (context "/api/v1" []
              search-handler
+             point-handler
              (GET "/get-csrf-token" [] (ok {:csrf-token *anti-forgery-token*}))
              (GET "/test" [] (ok {:message "yes, it works"}))
              (route/not-found

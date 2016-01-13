@@ -2,3 +2,4 @@ description: implement an API for adding new points (along their tags) into the 
 comment: add internal tests for save-point! and its infrastructure
 commit: model stuff for adding points to the database
 description: these include: /api/v1/point (POST), /api/v1/point/<lat>/<long> (GET, PUT)
+commit: GET API for individual points

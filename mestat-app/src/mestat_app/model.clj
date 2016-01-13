@@ -16,6 +16,7 @@
   (let [p (pg/point s)]
     [(.x p) (.y p)]))
 
+(def make-coord vector)
 (def coord-long first)
 (def coord-lat second)
 
@@ -42,6 +43,12 @@
     (db-points-near {:coord (pg/point p) :page page :limit limit
                      :username username :tagpat tagpat :mindate mindate
                      :maxdate maxdate :maxdist maxdist})))
+
+(defn point-at [p]
+  (first (point-query-to-pointlist
+           (db-points-near {:coord (pg/point p) :page 0 :limit 1
+                            :username nil :tagpat nil :mindate nil
+                            :maxdate nil :maxdist 0.0000001}))))
 
 (defn id-for-coord-maybe-create [coord]
   (let [params {:coord (pg/point coord)}]
