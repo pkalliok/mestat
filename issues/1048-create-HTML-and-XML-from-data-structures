@@ -2,3 +2,4 @@ description: string catenation is used to create XML in kml.clj and HTML in embe
 commit: use hiccup to create KML (done)
 status: done
 commit: only create descriptions when they differ from name element
+commit: fix point element to titlecase, unbreaks KML rendering
