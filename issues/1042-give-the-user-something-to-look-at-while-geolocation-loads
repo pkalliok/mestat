@@ -5,3 +5,5 @@ comment: [1021] KML generation could generate a <LookAt> element from system.ori
 comment: [1021] also maybe convert user IP to position if geolocation is not available
 relates: [1021] 1042
 relates: 1039
+commit: recenterMap is now called already before getCurrentLocation because of 1039 (done)
+status: done
