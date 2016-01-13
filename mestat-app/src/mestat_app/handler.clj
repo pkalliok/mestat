@@ -24,8 +24,10 @@
                             (str "/?latitude=" latitude
                                  "&longitude=" longitude) :see-other)))
               (status 400 "Missing parameters: tags")))
+    (POST "/add-point" [latitude :<< as-float longitude]
+          (status 400 "Malformed parameter: longitude (float)"))
     (POST "/add-point" [latitude longitude]
-          (status 400 "Malformed parameters: latitude, longitude"))))
+          (status 400 "Malformed parameter: latitude (float)"))))
 
 (defn html-response [html]
   (response/content-type (ok html) "text/html"))
