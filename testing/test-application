@@ -46,6 +46,13 @@ run_test "Checking mainpage has a map div" \
   'grep -q "<div id=\"map\">" "$TMPFILE"'
 run_test "Checking mainpage embeds a map" \
   'grep -q "/js/embedmap.js" "$TMPFILE"'
+run_test "Checking mainpage uses default location" \
+  'grep -q "value=\"60.17671\"" "$TMPFILE"'
+fetch_page 'main page with location parameters' \
+  "$BASEURL/?latitude=50&longitude=30.559"
+check_status 200
+run_test "Checking location got passed on" \
+  'grep -q "value=\"30.559\"" "$TMPFILE"'
 fetch_page 'CSRF token' "$BASEURL/api/v1/get-csrf-token"
 check_status 200
 CSRF=`grep -o '"csrf-token": *"[^"]*"' "$TMPFILE" | cut -d: -f2 | cut -d'"' -f2`
