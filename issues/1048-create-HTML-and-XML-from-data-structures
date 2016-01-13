@@ -3,3 +3,4 @@ commit: use hiccup to create KML (done)
 status: done
 commit: only create descriptions when they differ from name element
 commit: fix point element to titlecase, unbreaks KML rendering
+commit: update tests to test for Point elements in KML

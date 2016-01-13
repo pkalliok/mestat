@@ -78,7 +78,7 @@ run_test "Checking response is KML" \
 run_test "Checking the KML contains a city" \
   'grep -qi "<name>city</name>" "$TMPFILE"'
 run_test "Checking the KML has a point with coordinates" \
-  'grep -qi "<coordinates>[0-9.]*,[0-9.]*</coordinates>" "$TMPFILE"'
+  'grep -qi "<Point><coordinates>[0-9.]*,[0-9.]*</coordinates>" "$TMPFILE"'
 fetch_page 'invalid search' "$BASEURL/api/v1/search?limit=52"
 check_status 400
 run_test "Checking response is JSON" \
