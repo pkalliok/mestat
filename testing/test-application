@@ -12,6 +12,7 @@ run_test() {
 	echo -n "$1... "
 	eval "$2" && echo pass && return
 	echo FAIL
+	echo "$URL: " >> "$FAILED_PAGES"
 	echo | cat "$TMPFILE" - >> "$FAILED_PAGES"
 	FAILED="$FAILED
 	$1 ($URL)"
@@ -22,6 +23,13 @@ post_page() {
 		"curl -is -b '$COOKIES' -c '$COOKIES' '$2' \
 		--data-urlencode '__anti-forgery-token=$CSRF' $3 > '$TMPFILE'"
 	URL="$2 $3"
+}
+
+put_page() {
+	run_test "Putting $1 $2" \
+		"echo '$3' | curl -is -b '$COOKIES' -c '$COOKIES' '$2' \
+		-H 'X-CSRF-Token: $CSRF' -T - > '$TMPFILE'"
+	URL="$2 PUT $3"
 }
 
 fetch_page() {
@@ -75,6 +83,11 @@ run_test "Checking response is JSON" \
   'grep -qi "^content-type: application/json" "$TMPFILE"'
 run_test "Checking response is at requested location" \
   'grep -qi "25.46816, *65.01236" "$TMPFILE"'
+put_page 'save point' "$BASEURL/api/v1/point/31.5/77.3" \
+  '{"coord":[31.5,77.3],"tags":[["atehwa","test"],["atehwa","metsä"]]}'
+check_status 201
+run_test "Checking response location" \
+  'grep -qi "location: .*/api/v1/point/31.5/77.3" "$TMPFILE"'
 
 run_test "Fetching KML" \
   'curl -is -H "Accept: application/vnd.google-earth.kml+xml" \
