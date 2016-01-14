@@ -20,12 +20,22 @@
 (def coord-long first)
 (def coord-lat second)
 
+(defn coord? [c] (and (vector? c) (= 2 (count c))
+                      (number? (first c)) (number? (second c))))
+
 (def make-tag vector)
 (def tag-ns first)
 (def tag-name second)
 
+(defn tag? [t] (and (vector? t) (= 2 (count t))
+                    (string? (first t)) (string? (second t))))
+
 (defn make-point [coord tags & {:as params}]
   (assoc params :coord coord :tags tags))
+
+(defn point? [p]
+  (and (map? p) (:coord p) (coord? (:coord p))
+       (:tags p) (coll? (:tags p)) (every? tag? (:tags p))))
 
 (defn make-origin [coord]
   (make-point coord (list (make-tag "system" "origin"))))

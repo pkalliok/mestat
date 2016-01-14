@@ -4,3 +4,5 @@ commit: model stuff for adding points to the database
 description: these include: /api/v1/point (POST), /api/v1/point/<lat>/<long> (GET, PUT)
 commit: GET API for individual points
 commit: tests for PUTting points
+comment: more sanity checks for PUTting points: namespace restriction, must be logged in, etc.
+commit: point PUT handler, buggy in checks, tests still failing

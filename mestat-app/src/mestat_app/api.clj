@@ -24,7 +24,7 @@
        (status 400 {:error "missing search parameters"
                     :missing '(long lat)})))
 
-(defroutes point-handler
+(defroutes point-query-handler
   (GET "/point/:long/:lat" [long :<< as-float lat :<< as-float]
        (let [result (model/point-at (model/make-coord long lat))]
          (if result (ok result)
@@ -36,11 +36,32 @@
        (status 400 {:error "missing parameters"
                     :missing '(long lat)})))
 
+(defroutes point-add-handler
+  (PUT "/point/:long/:lat" [long :<< as-float lat :<< as-float
+                            :as {point :body-params}]
+       (or (and (model/point? point)
+                (= (:coord point) (model/make-point long lat))
+                (do (model/save-point! point)
+                    (status 201 {:message "created"})))
+           (status 400 {:error "invalid point structure"
+                        :actual point
+                        :shouldbe (model/make-point
+                                    (model/make-coord long lat)
+                                    [(model/make-tag "testuser" "example")])})))
+  (PUT "/point/:long/:lat" [long lat]
+       (status 400 {:error "malformed parameters"
+                    :types {:long :float :lat :float}}))
+  (PUT "/point" []
+       (status 400 {:error "missing parameters"
+                    :missing '(long lat)})))
+
 (def api-routes
   (wrap-restful-format
     (context "/api/v1" []
              search-handler
-             point-handler
+             point-query-handler
+             point-add-handler
+             ;point-import-handler
              (GET "/get-csrf-token" [] (ok {:csrf-token *anti-forgery-token*}))
              (GET "/test" [] (ok {:message "yes, it works"}))
              (route/not-found

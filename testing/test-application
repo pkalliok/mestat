@@ -28,7 +28,8 @@ post_page() {
 put_page() {
 	run_test "Putting $1 $2" \
 		"echo '$3' | curl -is -b '$COOKIES' -c '$COOKIES' '$2' \
-		-H 'X-CSRF-Token: $CSRF' -T - > '$TMPFILE'"
+		-H 'Content-type: application/json' -H 'X-CSRF-Token: $CSRF' \
+		-T - > '$TMPFILE'"
 	URL="$2 PUT $3"
 }
 
