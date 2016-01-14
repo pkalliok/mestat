@@ -1,2 +1,3 @@
 description: in split-tags, take username from session and use that for the namespace.
 depends: 1007
+comment: also in point-add-handler (API side)

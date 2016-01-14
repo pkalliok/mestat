@@ -7,3 +7,8 @@ commit: tests for PUTting points
 comment: more sanity checks for PUTting points: namespace restriction, must be logged in, etc.
 commit: point PUT handler, buggy in checks, tests still failing
 commit: fixed bug: make-coord instead of make-point, tests pass
+moved-to: 1053
+moved-to: 1059
+moved-to: 1060
+commit: moved rest of work to separate issues (done)
+status: done
