@@ -6,3 +6,4 @@ commit: GET API for individual points
 commit: tests for PUTting points
 comment: more sanity checks for PUTting points: namespace restriction, must be logged in, etc.
 commit: point PUT handler, buggy in checks, tests still failing
+commit: fixed bug: make-coord instead of make-point, tests pass

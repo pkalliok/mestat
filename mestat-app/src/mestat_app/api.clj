@@ -6,6 +6,7 @@
             [mestat-app.util :refer :all]
             [clj-postgresql.core :as pg]
             [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]
+            [ring.util.response :refer [created]]
             [ring.middleware.format :refer [wrap-restful-format]]
             [ring.middleware.format-response :refer [make-encoder]]))
 
@@ -38,11 +39,11 @@
 
 (defroutes point-add-handler
   (PUT "/point/:long/:lat" [long :<< as-float lat :<< as-float
-                            :as {point :body-params}]
+                            :as {uri :uri point :body-params}]
        (or (and (model/point? point)
-                (= (:coord point) (model/make-point long lat))
+                (= (:coord point) (model/make-coord long lat))
                 (do (model/save-point! point)
-                    (status 201 {:message "created"})))
+                    (created uri {:message "created"})))
            (status 400 {:error "invalid point structure"
                         :actual point
                         :shouldbe (model/make-point
