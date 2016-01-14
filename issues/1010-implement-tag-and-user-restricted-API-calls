@@ -5,3 +5,4 @@ comment: some thoughts on dynamic WHERE: https://github.com/krisajenkins/yesql/i
 commit: SQL queries for restrictions implemented, needs default maxdist
 commit: implementing default maxdist, some tests are now failing
 commit: maxdist param for search API, tests modified and pass, new defaults
+commit: mark dependency
